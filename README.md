@@ -13,6 +13,8 @@ Nikolas edits; Louka reads.
    For a venue with no Google listing (an unregistered futsal), use the **Locate** field in the
    edit form: search a street/place (OpenStreetMap, no key) or press **Pick on map** and click.
 3. Press **Export JSON** → `venues.json` downloads.
+   (**Export PDF** — available to readers too — prints an offline pipeline brief:
+   next steps first, then every venue by stage. Choose "Save as PDF" in the dialog.)
 4. Replace `venues.json` in the repo and push. GitHub Pages redeploys; Louka's link now shows the new state.
 5. Press **Discard draft** so your browser reads the published file again.
 

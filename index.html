@@ -165,6 +165,37 @@
     #detail{left:0;width:100%;top:auto;height:min(78vh,100%);border-right:0;border-top:1px solid var(--line);box-shadow:0 -12px 40px rgba(16,24,28,.16)}
   }
   @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+
+  /* ---------- PDF brief (print) ---------- */
+  #report{display:none}
+  @media print{
+    @page{size:A4;margin:14mm}
+    #app,#toast,#pickhint{display:none!important}
+    html,body{height:auto;background:#fff;overflow:visible}
+    #report{display:block;color:var(--chalk);font-family:var(--body);font-size:10.5pt;line-height:1.5;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+    .r-head{display:flex;align-items:baseline;gap:10pt;border-bottom:2pt solid var(--chalk);padding-bottom:5pt}
+    .r-brand{font-family:var(--display);font-weight:600;font-size:20pt;text-transform:uppercase;letter-spacing:.04em}
+    .r-title,.r-date{font-family:var(--mono);font-size:9pt;color:var(--chalk-dim)}
+    .r-date{margin-left:auto}
+    .r-sumline{font-family:var(--display);font-weight:600;font-size:15pt;margin:10pt 0 4pt}
+    .r-chips{display:flex;flex-wrap:wrap;gap:4pt 12pt;font-family:var(--mono);font-size:8.5pt;color:var(--chalk-dim);margin-bottom:4pt}
+    .r-chip{display:inline-flex;align-items:center;gap:4pt}
+    .r-dot{display:inline-block;width:7pt;height:7pt;border-radius:1pt}
+    #report h2{font-family:var(--display);font-weight:600;font-size:13pt;margin:12pt 0 4pt;border-bottom:1pt solid var(--chalk-mute);padding-bottom:2pt}
+    #report h3{font-family:var(--display);font-weight:600;font-size:11.5pt;margin:10pt 0 2pt;display:flex;align-items:center;gap:5pt}
+    .r-next table{width:100%;border-collapse:collapse;font-size:9.5pt}
+    .r-next th{font-family:var(--mono);font-size:8pt;text-transform:uppercase;letter-spacing:.06em;text-align:left;color:var(--chalk-dim);border-bottom:1pt solid var(--chalk-mute);padding:2pt 6pt 2pt 0}
+    .r-next td{padding:3pt 6pt 3pt 0;border-bottom:.5pt solid var(--chalk-mute);vertical-align:top}
+    .r-next tr.od td:first-child{color:var(--overdue-deep);font-weight:600}
+    .r-v{break-inside:avoid;padding:4pt 0 5pt;border-bottom:.5pt solid var(--chalk-mute)}
+    .r-nm{font-family:var(--display);font-weight:600;font-size:11pt}
+    .r-own{font-family:var(--mono);font-size:8pt;color:var(--chalk-dim);border:.5pt solid var(--chalk-mute);padding:0 3pt;border-radius:2pt;margin-left:4pt}
+    .r-meta,.r-log{font-family:var(--mono);font-size:8.5pt;color:var(--chalk-dim)}
+    .r-flags{font-family:var(--mono);font-size:8.5pt;color:var(--chalk-mute)}
+    .r-act{font-size:9.5pt}
+    .r-act.od{color:var(--overdue-deep)}
+    .r-foot{margin-top:14pt;font-family:var(--mono);font-size:8pt;color:var(--chalk-mute)}
+  }
 </style>
 </head>
 <body>
@@ -174,6 +205,7 @@
     <div class="stages" id="stages"></div>
     <div class="tools">
       <button class="btn ghost" id="btnDiscard" title="Discard unsaved draft" style="display:none">Discard draft</button>
+      <button class="btn" id="btnPDF" title="Print / save the pipeline brief as a PDF">Export PDF</button>
       <button class="btn editor-only" id="btnExport" title="Download venues.json to commit">Export JSON</button>
       <button class="btn editor-only" id="btnAdd">+ Venue</button>
       <button class="btn ghost editor-only" id="btnEdit" title="Switch to reader view">Reader view</button>
@@ -193,6 +225,7 @@
   </main>
 </div>
 <div id="pickhint">Click the map to place the pin — Esc to cancel</div>
+<div id="report" aria-hidden="true"></div>
 <div id="toast" role="status"></div>
 
 <script id="venues-embedded" type="application/json">
@@ -261,6 +294,39 @@
     const a = Object.assign(document.createElement('a'), {href:URL.createObjectURL(blob), download:'venues.json'});
     document.body.appendChild(a); a.click(); a.remove();
     toast('venues.json downloaded — replace it in the repo and push');
+  }
+
+  // ---------- PDF brief ----------
+  function buildReport(){
+    const d = today();
+    const counts = {}; venues.forEach(v => counts[v.stage]=(counts[v.stage]||0)+1);
+    const od = venues.filter(isOverdue);
+    const next = venues.filter(v => !DONE.has(v.stage) && (v.next_action || v.next_date))
+      .sort((a,b) => (isOverdue(b)-isOverdue(a)) || String(a.next_date||'9999').localeCompare(String(b.next_date||'9999')));
+    const order = ['live','onboarding','proposal','visited','contacted','unqualified','lost'];
+    const chips = STAGES.map(([k,l]) => `<span class="r-chip"><span class="r-dot" style="background:var(--s-${k})"></span>${l} ${counts[k]||0}</span>`).join('');
+    const nextRows = next.map(v =>
+      `<tr class="${isOverdue(v)?'od':''}"><td>${esc(v.next_date||'—')}${isOverdue(v)?' !':''}</td><td>${esc(v.name)}</td><td>${esc(v.owner)}</td><td>${esc(v.next_action||'—')}</td></tr>`).join('');
+    const stageSecs = order.filter(k => counts[k]).map(k => {
+      const vs = venues.filter(v => v.stage===k).sort((a,b) => a.name.localeCompare(b.name));
+      return `<section><h3><span class="r-dot" style="background:var(--s-${k})"></span>${STAGE_LABEL[k]} · ${vs.length}</h3>` + vs.map(v => {
+        const bits = [v.area, v.phone, v.pitches].filter(Boolean).map(esc).join(' · ');
+        const fl  = v.flags.length ? `<div class="r-flags">${v.flags.map(esc).join(' · ')}</div>` : '';
+        const act = v.next_action ? `<div class="r-act${isOverdue(v)?' od':''}">→ ${esc(v.next_action)}${v.next_date?` (by ${esc(v.next_date)}${isOverdue(v)?' — overdue':''})`:''}</div>` : '';
+        const log = v.log.slice(-2).reverse().map(e => `<div class="r-log">${esc(e.date)} — ${esc(e.text)}</div>`).join('');
+        return `<div class="r-v"><div class="r-nm">${esc(v.name)}<span class="r-own">${esc(v.owner)}</span></div><div class="r-meta">${bits}</div>${fl}${act}${log}</div>`;
+      }).join('') + `</section>`;
+    }).join('');
+    return `<div class="r-head"><span class="r-brand">Ludi</span><span class="r-title">Limassol venue atlas — pipeline brief</span><span class="r-date">${d}</span></div>
+      <div class="r-sumline">${venues.length} venues · ${venues.filter(v=>v.stage==='live').length} live · ${od.length} overdue</div>
+      <div class="r-chips">${chips}</div>
+      ${next.length ? `<section class="r-next"><h2>Next steps</h2><table><thead><tr><th>By</th><th>Venue</th><th>Owner</th><th>Action</th></tr></thead><tbody>${nextRows}</tbody></table></section>` : ''}
+      <h2>Pipeline</h2>${stageSecs}
+      <div class="r-foot">Generated ${d} from the atlas · nikolasneofytou.github.io/ludi-atlas${hasDraft?' · includes this device’s unpublished draft':''}</div>`;
+  }
+  function exportPDF(){
+    $('#report').innerHTML = buildReport();
+    window.print();
   }
 
   // ---------- editor mode ----------
@@ -486,6 +552,7 @@
     setEditor(!!localStorage.getItem(EDIT_KEY) || new URLSearchParams(location.search).has('edit'));
     $('#btnEdit').onclick = () => setEditor(!document.body.classList.contains('editor'));
     $('#btnExport').onclick = exportJSON;
+    $('#btnPDF').onclick = exportPDF;
     $('#btnAdd').onclick = addVenue;
     $('#btnDiscard').onclick = () => { if (confirm('Discard the unpublished draft on this device?')) discardDraft(); };
     document.addEventListener('keydown', e => {
