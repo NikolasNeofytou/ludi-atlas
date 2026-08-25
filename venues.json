@@ -358,5 +358,393 @@
     "text": "Desk scan Aug 2026: priority 6. Academy-first — pitches committed to coaching (15:00–19:00 weekdays, closed Sun). Under 100 m from Kamares: a free second call on the same visit. Unverified [B]."
    }
   ]
+ },
+ {
+  "id": "futsal-time-thoi",
+  "name": "Futsal Time THOI",
+  "area": "Lakatamia",
+  "district": "Nicosia",
+  "lat": 35.12373,
+  "lng": 33.30634,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 890630",
+  "pitches": "3× 5v5 (2 convert to 6v6); Masters-spec pitch under construction",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "First call of the Nicosia round — interview first, founding-venue offer second",
+  "next_date": "",
+  "flags": [
+   "has website"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 1 of 15. Own booking site, expanding (new pitch under construction) — capital going in is the timing signal. West-belt cluster. Unverified [A/B]."
+   }
+  ]
+ },
+ {
+  "id": "campeone-mini-football",
+  "name": "Campeone Mini Football",
+  "area": "Anthoupoli",
+  "district": "Nicosia",
+  "lat": 35.12616,
+  "lng": 33.28958,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 403603",
+  "pitches": "7× 5v5, 3× 7v7, 1× 9v9, 1× 11v11 (verify — source may be stale)",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Call — biggest cluster inventory and a DNS-dead website: the digital gap Ludi fills",
+  "next_date": "",
+  "flags": [
+   "parties"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 2. 12 pitches on paper, website dead, Facebook-only presence — under-managed or declining, both are openings. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "city-fields",
+  "name": "City Fields",
+  "area": "Strovolos",
+  "district": "Nicosia",
+  "lat": 35.13076,
+  "lng": 33.35769,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 70 006789",
+  "pitches": "4 indoor: 1× 9v9 + 3× 5v5, FIFA Quality Pro turf; 3 padel",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Demand-side pitch — padel is on Playtomic, futsal still phone-booked at €60/hr",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "parties",
+   "uses competitor tool"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 3. The padel-tell: pays for Playtomic (padel) yet keeps football on the phone — proof court-booking tools don't crack football. Hours 15:00–23:00. Unverified [A]."
+   }
+  ]
+ },
+ {
+  "id": "central-park-futsal",
+  "name": "Central Park Futsal",
+  "area": "Nicosia centre",
+  "district": "Nicosia",
+  "lat": 35.15058,
+  "lng": 33.35032,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 774418",
+  "pitches": "10 outdoor, formats 5v5–11v11, FIFA Quality turf",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Partnership visit, not conversion — lead with off-peak fill and discovery on their own engine",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "parties"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 4. Biggest venue in the district, English School park, own booking engine, schools by day / private hire by night. Strategic anchor for player-app credibility. Unverified [A]."
+   }
+  ]
+ },
+ {
+  "id": "paeek-kerynia-sc",
+  "name": "PAEEK Kerynia Sports Center",
+  "area": "Lakatamia",
+  "district": "Nicosia",
+  "lat": 35.13113,
+  "lng": 33.3169,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 558811",
+  "pitches": "3 futsal (5v5–9v9 layouts) + 4 padel, roofed; €60/hr 5v5",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Interview on Bookydays — what it does and doesn't do for them; check Wembley (same street) on the visit",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "uses competitor tool",
+   "parties"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 5. The district's one Bookydays venue — worth more as competitive intel than inventory. Kifea 1, near Jumbo. Unverified [A/B]."
+   }
+  ]
+ },
+ {
+  "id": "nuevo-campo",
+  "name": "Nuevo Campo",
+  "area": "Latsia",
+  "district": "Nicosia",
+  "lat": 35.11685,
+  "lng": 33.36517,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 530500",
+  "pitches": "11 covered 5v5, floodlit, all-weather",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Ask the party/event share of the calendar before offering anything (the Delle Alpi lesson)",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "parties"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 6. Oldest futsal operator in Nicosia (est. 2000), own booking, heavy kids-party positioning. Isolated in Latsia but 11 pitches is a volume anchor. Hours from 15:00. Unverified [A]."
+   }
+  ]
+ },
+ {
+  "id": "alion-park",
+  "name": "Alion Park",
+  "area": "Dali / Nisou",
+  "district": "Nicosia",
+  "lat": 35.02114,
+  "lng": 33.38925,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 449482",
+  "pitches": "2 futsal (5v5–8v8 layouts) + padel; leisure park",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "parties",
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 7. 11,000 m² leisure park (pool, restaurant), phone-only booking, 10:00–23:45. Southern satellite — coverage economics. Unverified [A]."
+   }
+  ]
+ },
+ {
+  "id": "etha-engomi",
+  "name": "ETHA Engomi Futsal",
+  "area": "Engomi",
+  "district": "Nicosia",
+  "lat": 35.16376,
+  "lng": 33.33549,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 216644",
+  "pitches": "count unpublished — 2 lit artificial-turf pitches on OSM",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 8. Club-owned, phone-only, the only supply found in Engomi. Grigori Afxentiou 52. Unverified [B/C]."
+   }
+  ]
+ },
+ {
+  "id": "gcs-sports-centre",
+  "name": "The GCS Sports Centre",
+  "area": "Strovolos",
+  "district": "Nicosia",
+  "lat": 35.15659,
+  "lng": 33.33846,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 22 464400",
+  "pitches": "futsal count unpublished; padel, basketball; 07:00–01:00",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Watch, don't pitch — the only Playtomic-bookable futsal in Cyprus found; recheck monthly as the Playtomic tripwire",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "uses competitor tool",
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 9. School-owned (G.C. School of Careers), own portal + Playtomic. Early-warning post for Playtomic moving into football. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "goall-nicosia",
+  "name": "goAll Padel Centers Nicosia",
+  "area": "Strovolos",
+  "district": "Nicosia",
+  "lat": 35.14703,
+  "lng": 33.33381,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 252251",
+  "pitches": "mini-football court(s) + 3 padel",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "padel-first",
+   "uses competitor tool",
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 10. Padel-first, on Playtomic, corporate-futsal tournament venue. Mini-football rental mechanics unclear. Unverified [A/B]."
+   }
+  ]
+ },
+ {
+  "id": "wembley-futsal-fields",
+  "name": "Wembley Futsal Fields",
+  "area": "Lakatamia",
+  "district": "Nicosia",
+  "lat": 35.1315,
+  "lng": 33.3172,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 151109",
+  "pitches": "unknown",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Verify still operating — same street as PAEEK (Kifea); absorbed or independent?",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 11. Facebook + directories only; coordinates approximate (placed by street). Distinct from the Ypsonas and Xylophagou Wembleys. Unverified [B/C]."
+   }
+  ]
+ },
+ {
+  "id": "spazio-padel-futsal",
+  "name": "Spazio Padel (futsal side)",
+  "area": "Anthoupoli road",
+  "district": "Nicosia",
+  "lat": 35.11366,
+  "lng": 33.28725,
+  "place_id": "",
+  "operator": "",
+  "phone": "",
+  "pitches": "futsal courts + 6 padel, gym, pool",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Verify futsal is public-rentable vs academy-used",
+  "next_date": "",
+  "flags": [
+   "padel-first",
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 12. Padel on Playtomic, futsal not bookable there; no phone found in sources. Coordinates locality-level. Unverified [B/C]."
+   }
+  ]
+ },
+ {
+  "id": "strovolos-sport-center",
+  "name": "Strovolos Sport Center (municipal)",
+  "area": "Strovolos",
+  "district": "Nicosia",
+  "lat": 35.15135,
+  "lng": 33.35482,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 22 318358",
+  "pitches": "4 futsal — €50/hr weekdays, €40/hr weekends",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 13. Glafkos Clerides municipal centre — hourly-rentable but municipal procurement makes it a poor sales target. Use as the price-floor benchmark. Unverified [A]."
+   }
+  ]
+ },
+ {
+  "id": "daka-aglantzia",
+  "name": "DAKA Aglantzia (municipal)",
+  "area": "Aglantzia",
+  "district": "Nicosia",
+  "lat": 35.1551,
+  "lng": 33.40405,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 22 339848",
+  "pitches": "2 futsal — €40/hr public, +€2/hr lights (published price list)",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 14. Municipal athletic centre with a full published price list — the other half of the €40–50 price floor. Unverified [A]."
+   }
+  ]
+ },
+ {
+  "id": "da-luz-soccer-fields",
+  "name": "Da Luz Soccer Fields",
+  "area": "Kato Deftera",
+  "district": "Nicosia",
+  "lat": 35.0914,
+  "lng": 33.2778,
+  "place_id": "",
+  "operator": "",
+  "phone": "",
+  "pitches": "2 pitches inferred from named bus stops",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Ground-truth on the southern loop — coordinates are the bus stops, not the pitch",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 15. Known only from two NPT bus stops named after its pitches; no web or directory surface found. Unverified [C]."
+   }
+  ]
  }
 ]
