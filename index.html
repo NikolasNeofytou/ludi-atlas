@@ -146,7 +146,7 @@
   .pin{width:24px;height:16px;border:2px solid var(--c);border-radius:2px;background:color-mix(in srgb,var(--c) 45%,var(--night));position:relative;box-shadow:0 2px 6px rgba(16,24,28,.22);transition:transform .12s}
   .pin::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;background:var(--c);transform:translateX(-50%)}
   .pin.overdue{box-shadow:0 0 0 3px var(--overdue),0 2px 6px rgba(16,24,28,.22)}
-  .pin.louka::before{content:"L";position:absolute;right:-9px;top:-9px;width:14px;height:14px;border-radius:50%;background:var(--chalk);color:var(--night);font:700 9px/14px var(--mono);text-align:center}
+  .pin .who{position:absolute;right:-9px;top:-9px;width:14px;height:14px;border-radius:50%;background:var(--chalk);color:var(--night);font:700 9px/14px var(--mono);text-align:center}
   .pin:hover,.leaflet-marker-icon.sel .pin{transform:scale(1.25)}
   .leaflet-tooltip.lbl{background:var(--night);color:var(--chalk);border:1px solid var(--line);font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.03em;padding:3px 8px;border-radius:2px;box-shadow:none}
   .leaflet-tooltip-top.lbl::before{border-top-color:var(--line)}
@@ -249,16 +249,22 @@
 
 <script id="venues-embedded" type="application/json">
 [
- {"id":"wembley-ypsonas","name":"Wembley Ypsonas Mini Football","area":"Ypsonas","lat":34.6815588,"lng":32.9769757,"place_id":"ChIJR3qJB5Ax5xQRPS_iB82GADA","operator":"","phone":"+357 99 582008","pitches":"1× 9v9, 2× 5v5 (new turf)","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["cash-only café","parties"],"log":[]},
- {"id":"football-park","name":"Football Park","area":"Limassol centre","lat":34.6843509,"lng":33.0252115,"place_id":"ChIJCWOlq68z5xQR5HGi6MZB1jQ","operator":"","phone":"+357 99 446965","pitches":"unknown — turf ageing","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["corporate events","big parking"],"log":[]},
- {"id":"lanitio-mini","name":"Lanitio Mini Football","area":"Lanitio","lat":34.6884703,"lng":33.0400352,"place_id":"ChIJmWyF4QEz5xQRUjCDiFyqhC0","operator":"","phone":"+357 25 315757","pitches":"unknown — showers, shop","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["owner-run"],"log":[]},
- {"id":"valley-sports-arena","name":"Valley Sports Arena","area":"Germasogeia","lat":34.711282,"lng":33.0908847,"place_id":"ChIJ87i4ckbL4BQRImRJMrRY_c4","operator":"","phone":"+357 25 329888","pitches":"8/9-a-side + futsal; recurring team blocks","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["recurring teams","has website"],"log":[]},
- {"id":"minalido","name":"Minalido Sports Center","area":"Germasogeia","lat":34.7172697,"lng":33.0888432,"place_id":"ChIJoydpEdTL4BQRbOV8PAzrNkw","operator":"","phone":"+357 99 841877","pitches":"unknown — café, parties","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["has website","parties"],"log":[]},
- {"id":"kick-on-fives","name":"Kick on Fives","area":"Kato Polemidia","lat":34.6862041,"lng":33.0136104,"place_id":"ChIJg-DLPTgz5xQRmdHuKHhynC8","operator":"same phone as 4U Padel","phone":"+357 99 555222","pitches":"unknown","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["multi-venue operator?","parties"],"log":[]},
- {"id":"megasport","name":"MegaSport Mini Football Club","area":"Roosevelt Ave","lat":34.6616285,"lng":33.0130013,"place_id":"ChIJ50hXPEAy5xQR-B7JOIT1l48","operator":"","phone":"+357 25 575655","pitches":"unknown — no online footprint","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["needs visit to qualify"],"log":[]},
- {"id":"lsc-sporting","name":"LSC Sporting Center","area":"Kato Polemidia","lat":34.7032862,"lng":32.9882406,"place_id":"ChIJ--ttz38x5xQRieDan30oIbs","operator":"","phone":"","pitches":"unknown","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["has website","parties"],"log":[]},
- {"id":"nais","name":"NAIS Sports Club","area":"Germasogeia","lat":34.709074,"lng":33.0874723,"place_id":"ChIJs14-0vjL4BQRXjGkc5HddLs","operator":"","phone":"+357 97 749750","pitches":"padel-first; 1 small pitch","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["padel-first","secondary"],"log":[]},
- {"id":"goall","name":"goALL Padel Centers","area":"Limassol north","lat":34.7033799,"lng":33.0245359,"place_id":"ChIJp3-rU3Mz5xQRszWXyTwHs9o","operator":"","phone":"+357 97 443000","pitches":"padel-first; 1× 5v5","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["padel-first","secondary"],"log":[]}
+ {"id":"wembley-ypsonas","name":"Wembley Ypsonas Mini Football","area":"Ypsonas","lat":34.6815588,"lng":32.9769757,"place_id":"ChIJR3qJB5Ax5xQRPS_iB82GADA","operator":"","phone":"+357 99 582008","pitches":"1× 9v9, 2× 5v5 (new turf)","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["cash-only café","parties"],"log":[],"district":"Limassol"},
+ {"id":"football-park","name":"Football Park","area":"Limassol centre","lat":34.6843509,"lng":33.0252115,"place_id":"ChIJCWOlq68z5xQR5HGi6MZB1jQ","operator":"","phone":"+357 99 446965","pitches":"unknown — turf ageing","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["corporate events","big parking"],"log":[],"district":"Limassol"},
+ {"id":"lanitio-mini","name":"Lanitio Mini Football","area":"Lanitio","lat":34.6884703,"lng":33.0400352,"place_id":"ChIJmWyF4QEz5xQRUjCDiFyqhC0","operator":"","phone":"+357 25 315757","pitches":"unknown — showers, shop","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["owner-run"],"log":[],"district":"Limassol"},
+ {"id":"valley-sports-arena","name":"Valley Sports Arena","area":"Germasogeia","lat":34.711282,"lng":33.0908847,"place_id":"ChIJ87i4ckbL4BQRImRJMrRY_c4","operator":"","phone":"+357 25 329888","pitches":"8/9-a-side + futsal; recurring team blocks","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["recurring teams","has website"],"log":[],"district":"Limassol"},
+ {"id":"minalido","name":"Minalido Sports Center","area":"Germasogeia","lat":34.7172697,"lng":33.0888432,"place_id":"ChIJoydpEdTL4BQRbOV8PAzrNkw","operator":"","phone":"+357 99 841877","pitches":"unknown — café, parties","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["has website","parties"],"log":[],"district":"Limassol"},
+ {"id":"kick-on-fives","name":"Kick on Fives","area":"Kato Polemidia","lat":34.6862041,"lng":33.0136104,"place_id":"ChIJg-DLPTgz5xQRmdHuKHhynC8","operator":"same phone as 4U Padel","phone":"+357 99 555222","pitches":"unknown","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["multi-venue operator?","parties"],"log":[],"district":"Limassol"},
+ {"id":"megasport","name":"MegaSport Mini Football Club","area":"Roosevelt Ave","lat":34.6616285,"lng":33.0130013,"place_id":"ChIJ50hXPEAy5xQR-B7JOIT1l48","operator":"","phone":"+357 25 575655","pitches":"unknown — no online footprint","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["needs visit to qualify"],"log":[],"district":"Limassol"},
+ {"id":"lsc-sporting","name":"LSC Sporting Center","area":"Kato Polemidia","lat":34.7032862,"lng":32.9882406,"place_id":"ChIJ--ttz38x5xQRieDan30oIbs","operator":"","phone":"","pitches":"unknown","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["has website","parties"],"log":[],"district":"Limassol"},
+ {"id":"nais","name":"NAIS Sports Club","area":"Germasogeia","lat":34.709074,"lng":33.0874723,"place_id":"ChIJs14-0vjL4BQRXjGkc5HddLs","operator":"","phone":"+357 97 749750","pitches":"padel-first; 1 small pitch","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["padel-first","secondary"],"log":[],"district":"Limassol"},
+ {"id":"goall","name":"goALL Padel Centers","area":"Limassol north","lat":34.7033799,"lng":33.0245359,"place_id":"ChIJp3-rU3Mz5xQRszWXyTwHs9o","operator":"","phone":"+357 97 443000","pitches":"padel-first; 1× 5v5","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["padel-first","secondary"],"log":[],"district":"Limassol"},
+ {"id":"kamares-futsal","name":"Kamares Futsal","area":"Aradippou corridor","district":"Larnaca","lat":34.9034,"lng":33.5747,"place_id":"","operator":"","phone":"+357 97 978757","pitches":"unknown — 08:00–23:00 daily, cafeteria","stage":"unqualified","owner":"Nikolas","next_action":"Call for a 30-min matchmaking interview — research, not a pitch","next_date":"","flags":["owner-run","parties"],"log":[{"date":"2026-08-25","text":"Desk scan Aug 2026: priority 1 of 6. Operator already matches teams against each other by hand — the open-games feature run manually. Widest hours in the district. Unverified [B]."}]},
+ {"id":"old-gsz","name":"Old GSZ","area":"Stadiou area","district":"Larnaca","lat":34.9142,"lng":33.6284,"place_id":"","operator":"","phone":"","pitches":"unknown — turf good, floodlit, cafeteria","stage":"unqualified","owner":"Nikolas","next_action":"Hold for the tournament conversation — revisit when the competitive feature is scoped","next_date":"","flags":["recurring teams"],"log":[{"date":"2026-08-25","text":"Desk scan Aug 2026: priority 2. Recurring annual amateur cup (per-team entry) — the district's only assembled competitive audience. No phone published; contact via social page or in person. Unverified [B]."}]},
+ {"id":"delle-alpi-lounge","name":"Delle Alpi Lounge","area":"Aradippou corridor","district":"Larnaca","lat":34.9162,"lng":33.5734,"place_id":"","operator":"","phone":"+357 24 010592","pitches":"unknown — events share the calendar","stage":"unqualified","owner":"Nikolas","next_action":"Ask what share of pitch hours go to private events before any pilot offer","next_date":"","flags":["parties"],"log":[{"date":"2026-08-25","text":"Desk scan Aug 2026: priority 3. Listed as sports complex AND event venue; football-format parties. If the calendar is mostly private hire, it doesn't qualify. Unverified [B]."}]},
+ {"id":"livadia-futsal-club","name":"Livadia Futsal Club","area":"Livadia","district":"Larnaca","lat":34.9652,"lng":33.6268,"place_id":"","operator":"","phone":"+357 96 385858","pitches":"unknown — junior 5v5 tournaments","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["recurring teams","secondary"],"log":[{"date":"2026-08-25","text":"Desk scan Aug 2026: priority 4. Isolated anchor ~9 km from the corridor — bookings likely venue-sourced regulars, near-zero commission. List for coverage; don't spend founding slots. Unverified [B]."}]},
+ {"id":"alpha-sports-centre","name":"Alpha Sports Centre","area":"Aradippou corridor","district":"Larnaca","lat":34.8983,"lng":33.5791,"place_id":"","operator":"","phone":"","pitches":"unknown — no public info at all","stage":"unqualified","owner":"Nikolas","next_action":"Visit in person — no remote assessment possible (same trip as Kamares)","next_date":"","flags":["needs visit to qualify"],"log":[{"date":"2026-08-25","text":"Desk scan Aug 2026: priority 5. No phone, no hours, no web presence — undiscoverable online, which is exactly the failure Ludi corrects. Unverified [B]."}]},
+ {"id":"athletico-fa","name":"Athletico F.A.","area":"Aradippou corridor","district":"Larnaca","lat":34.9033,"lng":33.575,"place_id":"","operator":"","phone":"+357 70 003003","pitches":"outdoor futsal (academy)","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["secondary"],"log":[{"date":"2026-08-25","text":"Desk scan Aug 2026: priority 6. Academy-first — pitches committed to coaching (15:00–19:00 weekdays, closed Sun). Under 100 m from Kamares: a free second call on the same visit. Unverified [B]."}]}
 ]
 </script>
 
@@ -271,7 +277,7 @@
     ['proposal','Proposal'],['onboarding','Onboarding'],['live','Live'],['lost','Lost']
   ];
   const STAGE_LABEL = Object.fromEntries(STAGES);
-  const OWNERS = ['Nikolas','Louka'];
+  const OWNERS = ['Nikolas','Louka','Theophanis'];
   const DISTRICTS = ['Limassol','Larnaca','Nicosia','Paphos','Famagusta'];
   const FLAG_OPTIONS = ['recurring teams','padel-first','parties','cash-only café','uses competitor tool','multi-venue operator?','owner-run','has website','needs visit to qualify','secondary'];
   const DRAFT_KEY = 'ludi-atlas-draft-v1';
@@ -466,10 +472,11 @@
   }
 
   function icon(v){
-    const cls = ['pin', isOverdue(v) ? 'overdue' : '', v.owner==='Louka' ? 'louka' : ''].join(' ');
+    const cls = ['pin', isOverdue(v) ? 'overdue' : ''].join(' ');
     const si = planSeq.indexOf(v.id);
     const seq = si > -1 ? `<span class="seq">${si+1}</span>` : '';
-    return L.divIcon({className:'', html:`<div class="${cls}" style="--c:var(--s-${v.stage})">${seq}</div>`, iconSize:[24,16], iconAnchor:[12,8], tooltipAnchor:[0,-10]});
+    const who = v.owner !== 'Nikolas' ? `<span class="who">${esc(v.owner[0])}</span>` : '';
+    return L.divIcon({className:'', html:`<div class="${cls}" style="--c:var(--s-${v.stage})">${who}${seq}</div>`, iconSize:[24,16], iconAnchor:[12,8], tooltipAnchor:[0,-10]});
   }
   function syncMarkers(){
     const visible = new Set(filtered().map(v=>v.id));
@@ -503,9 +510,10 @@
     $('#sumLive').textContent = pool.filter(v=>v.stage==='live').length;
     const od = pool.filter(isOverdue).length;
     const active = pool.filter(v=>!DONE.has(v.stage) && v.stage!=='unqualified').length;
-    const louka = pool.filter(v=>v.owner==='Louka').length;
-    $('#sumSub').innerHTML = `${active} in play · <button id="ownLouka" class="subbtn${owner==='Louka'?' on':''}" aria-pressed="${owner==='Louka'}" title="Show only Louka's venues">${louka} on Louka</button>` + (od ? ` · <b>${od} overdue</b>` : '');
-    $('#ownLouka').onclick = () => { owner = owner==='Louka' ? null : 'Louka'; renderAll(); };
+    const agents = OWNERS.slice(1).map(o =>
+      `<button class="subbtn agent${owner===o?' on':''}" data-owner="${o}" aria-pressed="${owner===o}" title="Show only ${o}'s venues">${pool.filter(v=>v.owner===o).length} on ${o}</button>`).join(' · ');
+    $('#sumSub').innerHTML = `${active} in play · ${agents}` + (od ? ` · <b>${od} overdue</b>` : '');
+    $('#sumSub').querySelectorAll('.agent').forEach(b => b.onclick = () => { owner = owner===b.dataset.owner ? null : b.dataset.owner; renderAll(); });
   }
   function renderList(){
     const rows = filtered().slice().sort((a,b)=> (isOverdue(b)-isOverdue(a)) || (stageOrder[b.stage]-stageOrder[a.stage]) || a.name.localeCompare(b.name));
@@ -513,7 +521,7 @@
     $('#list').innerHTML = rows.map(v => {
       const meta = isOverdue(v) ? `overdue · ${v.next_action || 'no action set'}` : (v.next_action ? `${v.next_date ? v.next_date+' · ' : ''}${v.next_action}` : `${v.area} · ${STAGE_LABEL[v.stage]}`);
       const si = planSeq.indexOf(v.id);
-      const tail = si > -1 ? `<span class="seqn">${si+1}</span>` : `<span class="own">${v.owner==='Louka'?'L':'N'}</span>`;
+      const tail = si > -1 ? `<span class="seqn">${si+1}</span>` : `<span class="own">${esc(v.owner[0])}</span>`;
       return `<button class="row ${v.id===selected?'sel':''} ${isOverdue(v)?'overdue':''}" data-id="${v.id}" style="--c:var(--s-${v.stage})">
         <span class="pitch"></span>
         <span><div class="name">${esc(v.name)}</div><div class="meta">${esc(meta)}</div></span>
@@ -561,7 +569,7 @@
         </div>
         <div class="reader-only reportrow">
           <a class="btn" href="https://wa.me/?text=${encodeURIComponent(`Ludi atlas — ${v.name} (${[v.area,v.district].filter(Boolean).join(' · ')})\nStage: ${STAGE_LABEL[v.stage]}${v.next_action?`\nPlanned: ${v.next_action}`:''}\nWhat happened: `)}" target="_blank" rel="noopener">Report back on WhatsApp</a>
-          <div class="readhint">Louka: this opens a prefilled report — finish the “what happened” line and send it to Nikolas. He logs it here when he publishes.</div>
+          <div class="readhint">This opens a prefilled report — finish the “what happened” line and send it to Nikolas. He logs it here when he publishes.</div>
         </div>
       </div>
       <div class="d-foot editor-only"><button class="btn primary" id="dEdit">Edit venue</button></div>`;

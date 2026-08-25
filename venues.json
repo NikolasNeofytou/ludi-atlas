@@ -17,7 +17,8 @@
    "cash-only café",
    "parties"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
  },
  {
   "id": "football-park",
@@ -37,7 +38,8 @@
    "corporate events",
    "big parking"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
  },
  {
   "id": "lanitio-mini",
@@ -56,7 +58,8 @@
   "flags": [
    "owner-run"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
  },
  {
   "id": "valley-sports-arena",
@@ -76,7 +79,8 @@
    "recurring teams",
    "has website"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
  },
  {
   "id": "minalido",
@@ -96,7 +100,8 @@
    "has website",
    "parties"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
  },
  {
   "id": "kick-on-fives",
@@ -116,7 +121,8 @@
    "multi-venue operator?",
    "parties"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
  },
  {
   "id": "megasport",
@@ -135,7 +141,8 @@
   "flags": [
    "needs visit to qualify"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
  },
  {
   "id": "lsc-sporting",
@@ -155,7 +162,8 @@
    "has website",
    "parties"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
  },
  {
   "id": "nais",
@@ -175,7 +183,8 @@
    "padel-first",
    "secondary"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
  },
  {
   "id": "goall",
@@ -195,6 +204,159 @@
    "padel-first",
    "secondary"
   ],
-  "log": []
+  "log": [],
+  "district": "Limassol"
+ },
+ {
+  "id": "kamares-futsal",
+  "name": "Kamares Futsal",
+  "area": "Aradippou corridor",
+  "district": "Larnaca",
+  "lat": 34.9034,
+  "lng": 33.5747,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 97 978757",
+  "pitches": "unknown — 08:00–23:00 daily, cafeteria",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Call for a 30-min matchmaking interview — research, not a pitch",
+  "next_date": "",
+  "flags": [
+   "owner-run",
+   "parties"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan Aug 2026: priority 1 of 6. Operator already matches teams against each other by hand — the open-games feature run manually. Widest hours in the district. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "old-gsz",
+  "name": "Old GSZ",
+  "area": "Stadiou area",
+  "district": "Larnaca",
+  "lat": 34.9142,
+  "lng": 33.6284,
+  "place_id": "",
+  "operator": "",
+  "phone": "",
+  "pitches": "unknown — turf good, floodlit, cafeteria",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Hold for the tournament conversation — revisit when the competitive feature is scoped",
+  "next_date": "",
+  "flags": [
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan Aug 2026: priority 2. Recurring annual amateur cup (per-team entry) — the district's only assembled competitive audience. No phone published; contact via social page or in person. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "delle-alpi-lounge",
+  "name": "Delle Alpi Lounge",
+  "area": "Aradippou corridor",
+  "district": "Larnaca",
+  "lat": 34.9162,
+  "lng": 33.5734,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 24 010592",
+  "pitches": "unknown — events share the calendar",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Ask what share of pitch hours go to private events before any pilot offer",
+  "next_date": "",
+  "flags": [
+   "parties"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan Aug 2026: priority 3. Listed as sports complex AND event venue; football-format parties. If the calendar is mostly private hire, it doesn't qualify. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "livadia-futsal-club",
+  "name": "Livadia Futsal Club",
+  "area": "Livadia",
+  "district": "Larnaca",
+  "lat": 34.9652,
+  "lng": 33.6268,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 96 385858",
+  "pitches": "unknown — junior 5v5 tournaments",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "recurring teams",
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan Aug 2026: priority 4. Isolated anchor ~9 km from the corridor — bookings likely venue-sourced regulars, near-zero commission. List for coverage; don't spend founding slots. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "alpha-sports-centre",
+  "name": "Alpha Sports Centre",
+  "area": "Aradippou corridor",
+  "district": "Larnaca",
+  "lat": 34.8983,
+  "lng": 33.5791,
+  "place_id": "",
+  "operator": "",
+  "phone": "",
+  "pitches": "unknown — no public info at all",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Visit in person — no remote assessment possible (same trip as Kamares)",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan Aug 2026: priority 5. No phone, no hours, no web presence — undiscoverable online, which is exactly the failure Ludi corrects. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "athletico-fa",
+  "name": "Athletico F.A.",
+  "area": "Aradippou corridor",
+  "district": "Larnaca",
+  "lat": 34.9033,
+  "lng": 33.575,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 70 003003",
+  "pitches": "outdoor futsal (academy)",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan Aug 2026: priority 6. Academy-first — pitches committed to coaching (15:00–19:00 weekdays, closed Sun). Under 100 m from Kamares: a free second call on the same visit. Unverified [B]."
+   }
+  ]
  }
 ]
