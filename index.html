@@ -77,6 +77,10 @@
   .summary .sub{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--chalk-dim);margin-top:6px}
   .summary .sub b{color:var(--overdue-deep);font-weight:500}
   .summary .distsel{width:auto;margin-top:8px;font-size:13px;padding:4px 8px}
+  .subbtn{font:inherit;letter-spacing:inherit;padding:0;border-bottom:1px dotted var(--chalk-dim)}
+  .subbtn.on{color:var(--s-proposal);border-bottom:1px solid var(--s-proposal)}
+  a.btn{text-decoration:none;display:inline-block;text-align:center}
+  .reportrow{display:flex;flex-direction:column;gap:8px}
   .list{overflow:auto;flex:1}
   .row{display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--line);text-align:left;width:100%}
   .row:hover,.row.sel{background:var(--turf-2)}
@@ -222,7 +226,7 @@
     </div>
   </header>
   <div class="draftbar" id="draftbar">Unpublished draft on this device — export venues.json and commit to publish.</div>
-  <div class="planbar" id="planbar"><span id="planmsg"></span><button class="btn" id="btnPlanPDF">Export plan PDF</button><button class="btn ghost" id="btnPlanClear">Clear</button><button class="btn ghost" id="btnPlanDone">Done</button></div>
+  <div class="planbar" id="planbar"><span id="planmsg"></span><button class="btn" id="btnPlanPDF">Export plan PDF</button><button class="btn" id="btnPlanRoute">Open route in Maps</button><button class="btn ghost" id="btnPlanClear">Clear</button><button class="btn ghost" id="btnPlanDone">Done</button></div>
   <main>
     <aside>
       <div class="summary">
@@ -279,6 +283,7 @@
   let venues = [];
   let filter = null;      // stage id or null
   let district = 'all';   // district name or 'all'
+  let owner = null;       // 'Louka' or null (Nikolas doesn't need a self-filter)
   let selected = null;    // venue id
   let editing = false;    // detail form open
   let hasDraft = false;
@@ -336,6 +341,16 @@
       : `${n} stop${n===1?'':'s'} planned`;
     $('#btnPlanDone').textContent = planning ? 'Done' : 'Resume';
     $('#btnPlanPDF').disabled = n === 0;
+    $('#btnPlanRoute').disabled = n === 0;
+  }
+  function openPlanRoute(){
+    let stops = planSeq.map(id => venues.find(v => v.id === id)).filter(Boolean);
+    if (!stops.length){ toast('Tap venues first to build the sequence'); return; }
+    if (stops.length > 10){ toast('Maps takes 10 stops — routing the first 10'); stops = stops.slice(0,10); }
+    const pt = v => `${v.lat},${v.lng}`;
+    const dest = stops[stops.length-1];
+    const wps = stops.slice(0,-1).map(pt).join('|');
+    window.open(`https://www.google.com/maps/dir/?api=1&destination=${pt(dest)}${wps?`&waypoints=${encodeURIComponent(wps)}`:''}&travelmode=driving`, '_blank', 'noopener');
   }
   function stopEntry(v, i){
     const bits = [v.area, v.phone, v.pitches].filter(Boolean).map(esc).join(' · ');
@@ -474,9 +489,10 @@
   // ---------- list & summary ----------
   const stageOrder = Object.fromEntries(STAGES.map(([k],i)=>[k,i]));
   const inDistrict = v => district==='all' || v.district===district;
-  const filtered = () => venues.filter(v => inDistrict(v) && (!filter || v.stage===filter));
+  const inScope = v => inDistrict(v) && (!owner || v.owner===owner);
+  const filtered = () => venues.filter(v => inScope(v) && (!filter || v.stage===filter));
   function renderStages(){
-    const counts = {}; venues.filter(inDistrict).forEach(v => counts[v.stage]=(counts[v.stage]||0)+1);
+    const counts = {}; venues.filter(inScope).forEach(v => counts[v.stage]=(counts[v.stage]||0)+1);
     $('#stages').innerHTML = STAGES.map(([k,l]) =>
       `<button class="chip ${filter===k?'on':''}" data-stage="${k}" style="--c:var(--s-${k})" aria-pressed="${filter===k}"><span class="dot"></span>${l}<span class="n">${counts[k]||0}</span></button>`).join('');
     $('#stages').querySelectorAll('.chip').forEach(b => b.onclick = () => { filter = filter===b.dataset.stage ? null : b.dataset.stage; renderAll(); });
@@ -488,7 +504,8 @@
     const od = pool.filter(isOverdue).length;
     const active = pool.filter(v=>!DONE.has(v.stage) && v.stage!=='unqualified').length;
     const louka = pool.filter(v=>v.owner==='Louka').length;
-    $('#sumSub').innerHTML = `${active} in play · ${louka} on Louka` + (od ? ` · <b>${od} overdue</b>` : '');
+    $('#sumSub').innerHTML = `${active} in play · <button id="ownLouka" class="subbtn${owner==='Louka'?' on':''}" aria-pressed="${owner==='Louka'}" title="Show only Louka's venues">${louka} on Louka</button>` + (od ? ` · <b>${od} overdue</b>` : '');
+    $('#ownLouka').onclick = () => { owner = owner==='Louka' ? null : 'Louka'; renderAll(); };
   }
   function renderList(){
     const rows = filtered().slice().sort((a,b)=> (isOverdue(b)-isOverdue(a)) || (stageOrder[b.stage]-stageOrder[a.stage]) || a.name.localeCompare(b.name));
@@ -542,7 +559,10 @@
         <div class="field"><label>Log</label>
           ${v.log.length ? `<div class="log">${v.log.slice().reverse().map(e=>`<div class="e"><time>${esc(e.date)}</time><div>${esc(e.text)}</div></div>`).join('')}</div>` : `<div class="v none">nothing logged yet</div>`}
         </div>
-        <div class="readhint reader-only">Louka: this view is read-only. Tell Nikolas what happened and he'll log it here.</div>
+        <div class="reader-only reportrow">
+          <a class="btn" href="https://wa.me/?text=${encodeURIComponent(`Ludi atlas — ${v.name} (${[v.area,v.district].filter(Boolean).join(' · ')})\nStage: ${STAGE_LABEL[v.stage]}${v.next_action?`\nPlanned: ${v.next_action}`:''}\nWhat happened: `)}" target="_blank" rel="noopener">Report back on WhatsApp</a>
+          <div class="readhint">Louka: this opens a prefilled report — finish the “what happened” line and send it to Nikolas. He logs it here when he publishes.</div>
+        </div>
       </div>
       <div class="d-foot editor-only"><button class="btn primary" id="dEdit">Edit venue</button></div>`;
     $('#dClose').onclick = close;
@@ -635,6 +655,7 @@
     $('#btnPlanDone').onclick = $('#btnPlan').onclick;
     $('#btnPlanClear').onclick = () => { planSeq = []; localStorage.setItem(PLAN_KEY, '[]'); renderAll(); };
     $('#btnPlanPDF').onclick = exportPlanPDF;
+    $('#btnPlanRoute').onclick = openPlanRoute;
     $('#btnAdd').onclick = addVenue;
     $('#btnDiscard').onclick = () => { if (confirm('Discard the unpublished draft on this device?')) discardDraft(); };
     document.addEventListener('keydown', e => {

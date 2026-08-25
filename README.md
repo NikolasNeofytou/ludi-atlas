@@ -19,8 +19,15 @@ Limassol, the original patch).
    next steps first, then every venue by stage. A stage-chip filter narrows the brief
    to that stage. Choose "Save as PDF" in the dialog.)
    (**Plan** — also for readers — tap venues in the order you'll visit them; pins get
-   numbered badges, and **Export plan PDF** prints just those stops in sequence.
+   numbered badges, **Export plan PDF** prints just those stops in sequence, and
+   **Open route in Maps** builds turn-by-turn directions through them (first 10 stops).
    The plan is per-device and survives reloads; Clear resets it.)
+
+## Louka's loop (reader view)
+- Tap "N on Louka" in the summary to see only his venues.
+- Each venue's sheet has **Report back on WhatsApp** — a prefilled report (venue,
+  stage, planned action, "what happened: …") he finishes and sends to Nikolas,
+  who logs it and publishes.
 4. Replace `venues.json` in the repo and push. GitHub Pages redeploys; Louka's link now shows the new state.
 5. Press **Discard draft** so your browser reads the published file again.
 
