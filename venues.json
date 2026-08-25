@@ -746,5 +746,163 @@
     "text": "Desk scan 2026-08-25: priority 15. Known only from two NPT bus stops named after its pitches; no web or directory surface found. Unverified [C]."
    }
   ]
+ },
+ {
+  "id": "fair-game-sport-center",
+  "name": "A.M. Fair Game Sport Center",
+  "area": "Tremithousa",
+  "district": "Paphos",
+  "lat": 34.8046,
+  "lng": 32.4378,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 540237",
+  "pitches": "3 artificial 5-a-side + 1 padel",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "First Paphos call — interview on the walking-football clubs' booking flow and what fills the other mornings",
+  "next_date": "",
+  "flags": [
+   "recurring teams",
+   "uses competitor tool"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 1 of 6. Hosts expat walking-football clubs (Snails WFC, Akamas Turtles) on weekday mornings — the district's only assembled recurring audiences. Owner 'Mr. Andreas', 4.8/5 across 52 reviews. Padel on Playtomic, football by phone. Coordinates approximate (industrial-area pitch nodes). Unverified [B/C]."
+   }
+  ]
+ },
+ {
+  "id": "alana-sports-center",
+  "name": "Alana Sports Center",
+  "area": "Geroskipou",
+  "district": "Paphos",
+  "lat": 34.7535,
+  "lng": 32.42641,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 212212",
+  "pitches": "2× 38×18 m artificial + 3 padel",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "The Planfy post-mortem — they had online booking and turned it off; one question: why?",
+  "next_date": "",
+  "flags": [
+   "parties",
+   "uses competitor tool"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 2. The district's directory anchor; beach-strip location; parties, cafeteria, play park. Planfy online booking exists but is DISABLED — the best interview in Cyprus on why booking tools fail football. Hours 15:00–24:00 wk / 08:00–24:00 wknd. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "wembley-sports-center-paphos",
+  "name": "Wembley Sports Center Paphos",
+  "area": "Emba",
+  "district": "Paphos",
+  "lat": 34.81604,
+  "lng": 32.41443,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 886009",
+  "pitches": "2 mini-football + 2 padel + 3 tennis",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "parties",
+   "uses competitor tool"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 3. Own website (rare here), family/party positioning, 07:00–23:00 daily; padel on Playtomic, football by phone. Coordinates cross-matched to its mapped pitch pair. Unrelated to the Ypsonas and Lakatamia Wembleys. Unverified [A/B]."
+   }
+  ]
+ },
+ {
+  "id": "park-of-colors",
+  "name": "Park of Colors",
+  "area": "Paphos town",
+  "district": "Paphos",
+  "lat": 34.78182,
+  "lng": 32.42422,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 352817",
+  "pitches": "futsal court(s) + padel, skate arena, climbing wall",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Verify hourly public futsal rental — possibly municipal-built, commercially operated",
+  "next_date": "",
+  "flags": [
+   "parties",
+   "uses competitor tool",
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 4. Central park venue, 07:00–01:30, restaurant on site; padel on Playtomic. Rental basis for futsal is inferred, not operator-published. Unverified [B/C]."
+   }
+  ]
+ },
+ {
+  "id": "minthis-resort-sports",
+  "name": "Minthis Resort Sports Grounds",
+  "area": "Tsada",
+  "district": "Paphos",
+  "lat": 34.81923,
+  "lng": 32.49826,
+  "place_id": "",
+  "operator": "",
+  "phone": "",
+  "pitches": "1 mini-football + 2 padel + 4 tennis (resort)",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "uses competitor tool",
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 5. Hill-resort venue on Playtomic — possibly the only online-bookable football slot in the district (verify football vs padel-only). Resort economics; watch-list. Unverified [A/B]."
+   }
+  ]
+ },
+ {
+  "id": "sportivo-futsal",
+  "name": "Sportivo Futsal",
+  "area": "Paphos (Anavargos)",
+  "district": "Paphos",
+  "lat": 34.79197,
+  "lng": 32.43135,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 662233",
+  "pitches": "1 indoor mini-soccer, artificial turf",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Phone-verify still operating and publicly rentable",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify",
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Desk scan 2026-08-25: priority 6. Tied to a football academy; thin, possibly dormant web presence (last surface: Facebook shell). Unverified [B]."
+   }
+  ]
  }
 ]
