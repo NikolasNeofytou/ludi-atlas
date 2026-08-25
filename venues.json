@@ -904,5 +904,83 @@
     "text": "Desk scan 2026-08-25: priority 6. Tied to a football academy; thin, possibly dormant web presence (last surface: Facebook shell). Unverified [B]."
    }
   ]
+ },
+ {
+  "id": "municipal-futsal-tseri",
+  "name": "Municipal Futsal Tseri",
+  "area": "Tseri",
+  "district": "Nicosia",
+  "lat": 35.08263,
+  "lng": 33.34188,
+  "place_id": "",
+  "operator": "",
+  "phone": "",
+  "pitches": "1 municipal futsal court",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Verify booking route via Tseri municipality — fills the Tseri coverage gap",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify",
+   "secondary"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Ghost-verification pass 2026-08-25: found while resolving directory ghosts (all 8 excluded). Maps-listed, 5.0★ (2 reviews, 'hard to find'), unclaimed listing, no phone. Erases the 'Tseri has zero supply' finding. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "selecao-fa",
+  "name": "Selecao FA",
+  "area": "Nicosia centre",
+  "district": "Nicosia",
+  "lat": 35.14937,
+  "lng": 33.36688,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 452729",
+  "pitches": "1 futsal court (academy-run)",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Call — academy court, verify public hourly rental",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify",
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Ghost-verification pass 2026-08-25: academy-run court on Valtsetsiou, Maps 5.0★ (2 reviews ~1yr). Rentability unverified. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "ararat-futsal-arena",
+  "name": "Ararat Futsal Arena",
+  "area": "Aglantzia",
+  "district": "Nicosia",
+  "lat": 35.14934,
+  "lng": 33.39237,
+  "place_id": "",
+  "operator": "",
+  "phone": "",
+  "pitches": "1 indoor-style futsal arena",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Drive-by with the DAKA visit — club-first (AGBU Ararat FC), check if publicly rentable",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify",
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-08-25",
+    "text": "Ghost-verification pass 2026-08-25: Kyrenias 200, same address as Little Kickers; opens 17:00; 'feeling of a real futsal arena' (review, ~3yrs). Almost certainly Ararat FC's club arena. Coordinates street-level. Unverified [B/C]."
+   }
+  ]
  }
 ]
