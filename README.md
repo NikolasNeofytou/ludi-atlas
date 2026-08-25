@@ -14,7 +14,11 @@ Nikolas edits; Louka reads.
    edit form: search a street/place (OpenStreetMap, no key) or press **Pick on map** and click.
 3. Press **Export JSON** → `venues.json` downloads.
    (**Export PDF** — available to readers too — prints an offline pipeline brief:
-   next steps first, then every venue by stage. Choose "Save as PDF" in the dialog.)
+   next steps first, then every venue by stage. A stage-chip filter narrows the brief
+   to that stage. Choose "Save as PDF" in the dialog.)
+   (**Plan** — also for readers — tap venues in the order you'll visit them; pins get
+   numbered badges, and **Export plan PDF** prints just those stops in sequence.
+   The plan is per-device and survives reloads; Clear resets it.)
 4. Replace `venues.json` in the repo and push. GitHub Pages redeploys; Louka's link now shows the new state.
 5. Press **Discard draft** so your browser reads the published file again.
 

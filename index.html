@@ -39,10 +39,11 @@
   button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--s-live);outline-offset:2px}
 
   /* ---------- shell ---------- */
-  #app{display:grid;grid-template-rows:auto auto 1fr;grid-template-columns:minmax(0,1fr);height:100%;width:100%;overflow:hidden}
+  #app{display:grid;grid-template-rows:auto auto auto 1fr;grid-template-columns:minmax(0,1fr);height:100%;width:100%;overflow:hidden}
   header{grid-row:1;min-width:0}
   .draftbar{grid-row:2}
-  main{grid-row:3;min-width:0}
+  .planbar{grid-row:3}
+  main{grid-row:4;min-width:0}
   header{display:flex;align-items:center;gap:18px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--turf);z-index:1001}
   .brand{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.04em;text-transform:uppercase;line-height:1;display:flex;align-items:baseline;gap:10px;white-space:nowrap}
   .brand small{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--chalk-dim);text-transform:none}
@@ -151,6 +152,12 @@
   .draftbar{display:none;align-items:center;gap:10px;padding:8px 16px;background:color-mix(in srgb,var(--s-contacted) 18%,var(--turf));border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--chalk)}
   .draftbar.show{display:flex}
   .draftbar .btn{font-size:13px;padding:4px 8px}
+  .planbar{display:none;align-items:center;gap:10px;padding:8px 16px;background:color-mix(in srgb,var(--s-proposal) 10%,var(--turf));border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--chalk)}
+  .planbar.show{display:flex;flex-wrap:wrap}
+  .planbar .btn{font-size:13px;padding:4px 8px}
+  .btn.on{background:var(--turf-2);border-color:var(--s-proposal)}
+  .pin .seq{position:absolute;left:-9px;top:-9px;width:16px;height:16px;border-radius:50%;background:var(--s-proposal);color:var(--turf);font:700 9.5px/16px var(--mono);text-align:center;box-shadow:0 0 0 2px var(--turf)}
+  .row .seqn{font-family:var(--mono);font-size:11px;color:var(--turf);background:var(--s-proposal);border-radius:50%;width:20px;height:20px;line-height:20px;text-align:center}
 
   /* ---------- mobile ---------- */
   @media (max-width:820px){
@@ -188,6 +195,7 @@
     .r-next td{padding:3pt 6pt 3pt 0;border-bottom:.5pt solid var(--chalk-mute);vertical-align:top}
     .r-next tr.od td:first-child{color:var(--overdue-deep);font-weight:600}
     .r-v{break-inside:avoid;padding:4pt 0 5pt;border-bottom:.5pt solid var(--chalk-mute)}
+    .r-stopno{display:inline-block;width:14pt;height:14pt;border-radius:50%;background:var(--chalk);color:var(--turf);font-family:var(--mono);font-size:9pt;line-height:14pt;text-align:center;margin-right:5pt;vertical-align:1pt}
     .r-nm{font-family:var(--display);font-weight:600;font-size:11pt}
     .r-own{font-family:var(--mono);font-size:8pt;color:var(--chalk-dim);border:.5pt solid var(--chalk-mute);padding:0 3pt;border-radius:2pt;margin-left:4pt}
     .r-meta,.r-log{font-family:var(--mono);font-size:8.5pt;color:var(--chalk-dim)}
@@ -205,6 +213,7 @@
     <div class="stages" id="stages"></div>
     <div class="tools">
       <button class="btn ghost" id="btnDiscard" title="Discard unsaved draft" style="display:none">Discard draft</button>
+      <button class="btn" id="btnPlan" title="Tap venues in visit order, then export the plan">Plan</button>
       <button class="btn" id="btnPDF" title="Print / save the pipeline brief as a PDF">Export PDF</button>
       <button class="btn editor-only" id="btnExport" title="Download venues.json to commit">Export JSON</button>
       <button class="btn editor-only" id="btnAdd">+ Venue</button>
@@ -212,6 +221,7 @@
     </div>
   </header>
   <div class="draftbar" id="draftbar">Unpublished draft on this device — export venues.json and commit to publish.</div>
+  <div class="planbar" id="planbar"><span id="planmsg"></span><button class="btn" id="btnPlanPDF">Export plan PDF</button><button class="btn ghost" id="btnPlanClear">Clear</button><button class="btn ghost" id="btnPlanDone">Done</button></div>
   <main>
     <aside>
       <div class="summary">
@@ -256,6 +266,7 @@
   const FLAG_OPTIONS = ['recurring teams','padel-first','parties','cash-only café','uses competitor tool','multi-venue operator?','owner-run','has website','needs visit to qualify','secondary'];
   const DRAFT_KEY = 'ludi-atlas-draft-v1';
   const EDIT_KEY  = 'ludi-atlas-editor';
+  const PLAN_KEY  = 'ludi-atlas-plan-v1';
   const DONE = new Set(['live','lost']);
 
   // ---------- state ----------
@@ -264,6 +275,8 @@
   let selected = null;    // venue id
   let editing = false;    // detail form open
   let hasDraft = false;
+  let planning = false;   // tap venues to build a visit sequence
+  let planSeq = [];       // venue ids, in visit order
   const markers = new Map();
 
   const $ = s => document.querySelector(s);
@@ -282,6 +295,8 @@
     if (draft){ try { venues = JSON.parse(draft); hasDraft = true; } catch(e){ venues = base; } }
     else venues = base;
     venues.forEach(normalize);
+    try { planSeq = (JSON.parse(localStorage.getItem(PLAN_KEY)) || []).filter(id => venues.some(v => v.id === id)); }
+    catch(e){ planSeq = []; }
   }
   function normalize(v){
     v.flags ||= []; v.log ||= []; v.owner ||= 'Nikolas'; v.stage ||= 'unqualified';
@@ -296,19 +311,61 @@
     toast('venues.json downloaded — replace it in the repo and push');
   }
 
+  // ---------- visit plan ----------
+  function togglePlanStop(id){
+    const i = planSeq.indexOf(id);
+    if (i > -1) planSeq.splice(i, 1); else planSeq.push(id);
+    localStorage.setItem(PLAN_KEY, JSON.stringify(planSeq));
+    renderAll();
+  }
+  function renderPlanbar(){
+    const show = planning || planSeq.length > 0;
+    $('#planbar').classList.toggle('show', show);
+    $('#btnPlan').classList.toggle('on', planning);
+    if (!show) return;
+    const n = planSeq.length;
+    $('#planmsg').textContent = planning
+      ? (n ? `Next move — ${n} stop${n===1?'':'s'} · tap venues in visit order (tap again to remove)` : 'Next move — tap venues in the order you’ll visit them')
+      : `${n} stop${n===1?'':'s'} planned`;
+    $('#btnPlanDone').textContent = planning ? 'Done' : 'Resume';
+    $('#btnPlanPDF').disabled = n === 0;
+  }
+  function stopEntry(v, i){
+    const bits = [v.area, v.phone, v.pitches].filter(Boolean).map(esc).join(' · ');
+    const fl  = v.flags.length ? `<div class="r-flags">${v.flags.map(esc).join(' · ')}</div>` : '';
+    const act = v.next_action ? `<div class="r-act${isOverdue(v)?' od':''}">→ ${esc(v.next_action)}${v.next_date?` (by ${esc(v.next_date)}${isOverdue(v)?' — overdue':''})`:''}</div>` : '';
+    const log = v.log.slice(-2).reverse().map(e => `<div class="r-log">${esc(e.date)} — ${esc(e.text)}</div>`).join('');
+    return `<div class="r-v"><div class="r-nm"><span class="r-stopno">${i+1}</span>${esc(v.name)}<span class="r-own">${esc(v.owner)}</span></div>
+      <div class="r-meta"><span class="r-dot" style="background:var(--s-${v.stage})"></span> ${STAGE_LABEL[v.stage]} · ${bits}</div>${fl}${act}${log}</div>`;
+  }
+  function buildPlanReport(){
+    const d = today();
+    const stops = planSeq.map(id => venues.find(v => v.id === id)).filter(Boolean);
+    return `<div class="r-head"><span class="r-brand">Ludi</span><span class="r-title">Limassol venue atlas — visit plan</span><span class="r-date">${d}</span></div>
+      <div class="r-sumline">${stops.length} stop${stops.length===1?'':'s'}, in order</div>
+      ${stops.map(stopEntry).join('')}
+      <div class="r-foot">Generated ${d} from the atlas · nikolasneofytou.github.io/ludi-atlas</div>`;
+  }
+  function exportPlanPDF(){
+    if (!planSeq.length){ toast('Tap venues first to build the sequence'); return; }
+    $('#report').innerHTML = buildPlanReport();
+    window.print();
+  }
+
   // ---------- PDF brief ----------
   function buildReport(){
     const d = today();
-    const counts = {}; venues.forEach(v => counts[v.stage]=(counts[v.stage]||0)+1);
-    const od = venues.filter(isOverdue);
-    const next = venues.filter(v => !DONE.has(v.stage) && (v.next_action || v.next_date))
+    const pool = filtered();
+    const counts = {}; pool.forEach(v => counts[v.stage]=(counts[v.stage]||0)+1);
+    const od = pool.filter(isOverdue);
+    const next = pool.filter(v => !DONE.has(v.stage) && (v.next_action || v.next_date))
       .sort((a,b) => (isOverdue(b)-isOverdue(a)) || String(a.next_date||'9999').localeCompare(String(b.next_date||'9999')));
     const order = ['live','onboarding','proposal','visited','contacted','unqualified','lost'];
     const chips = STAGES.map(([k,l]) => `<span class="r-chip"><span class="r-dot" style="background:var(--s-${k})"></span>${l} ${counts[k]||0}</span>`).join('');
     const nextRows = next.map(v =>
       `<tr class="${isOverdue(v)?'od':''}"><td>${esc(v.next_date||'—')}${isOverdue(v)?' !':''}</td><td>${esc(v.name)}</td><td>${esc(v.owner)}</td><td>${esc(v.next_action||'—')}</td></tr>`).join('');
     const stageSecs = order.filter(k => counts[k]).map(k => {
-      const vs = venues.filter(v => v.stage===k).sort((a,b) => a.name.localeCompare(b.name));
+      const vs = pool.filter(v => v.stage===k).sort((a,b) => a.name.localeCompare(b.name));
       return `<section><h3><span class="r-dot" style="background:var(--s-${k})"></span>${STAGE_LABEL[k]} · ${vs.length}</h3>` + vs.map(v => {
         const bits = [v.area, v.phone, v.pitches].filter(Boolean).map(esc).join(' · ');
         const fl  = v.flags.length ? `<div class="r-flags">${v.flags.map(esc).join(' · ')}</div>` : '';
@@ -317,8 +374,8 @@
         return `<div class="r-v"><div class="r-nm">${esc(v.name)}<span class="r-own">${esc(v.owner)}</span></div><div class="r-meta">${bits}</div>${fl}${act}${log}</div>`;
       }).join('') + `</section>`;
     }).join('');
-    return `<div class="r-head"><span class="r-brand">Ludi</span><span class="r-title">Limassol venue atlas — pipeline brief</span><span class="r-date">${d}</span></div>
-      <div class="r-sumline">${venues.length} venues · ${venues.filter(v=>v.stage==='live').length} live · ${od.length} overdue</div>
+    return `<div class="r-head"><span class="r-brand">Ludi</span><span class="r-title">Limassol venue atlas — pipeline brief${filter?` · ${STAGE_LABEL[filter]} only`:''}</span><span class="r-date">${d}</span></div>
+      <div class="r-sumline">${pool.length} venue${pool.length===1?'':'s'} · ${pool.filter(v=>v.stage==='live').length} live · ${od.length} overdue</div>
       <div class="r-chips">${chips}</div>
       ${next.length ? `<section class="r-next"><h2>Next steps</h2><table><thead><tr><th>By</th><th>Venue</th><th>Owner</th><th>Action</th></tr></thead><tbody>${nextRows}</tbody></table></section>` : ''}
       <h2>Pipeline</h2>${stageSecs}
@@ -388,7 +445,9 @@
 
   function icon(v){
     const cls = ['pin', isOverdue(v) ? 'overdue' : '', v.owner==='Louka' ? 'louka' : ''].join(' ');
-    return L.divIcon({className:'', html:`<div class="${cls}" style="--c:var(--s-${v.stage})"></div>`, iconSize:[24,16], iconAnchor:[12,8], tooltipAnchor:[0,-10]});
+    const si = planSeq.indexOf(v.id);
+    const seq = si > -1 ? `<span class="seq">${si+1}</span>` : '';
+    return L.divIcon({className:'', html:`<div class="${cls}" style="--c:var(--s-${v.stage})">${seq}</div>`, iconSize:[24,16], iconAnchor:[12,8], tooltipAnchor:[0,-10]});
   }
   function syncMarkers(){
     const visible = new Set(filtered().map(v=>v.id));
@@ -427,16 +486,19 @@
     if (!rows.length){ $('#list').innerHTML = `<div class="empty">No venues in this stage yet.<br>Tap a chip above to clear the filter.</div>`; return; }
     $('#list').innerHTML = rows.map(v => {
       const meta = isOverdue(v) ? `overdue · ${v.next_action || 'no action set'}` : (v.next_action ? `${v.next_date ? v.next_date+' · ' : ''}${v.next_action}` : `${v.area} · ${STAGE_LABEL[v.stage]}`);
+      const si = planSeq.indexOf(v.id);
+      const tail = si > -1 ? `<span class="seqn">${si+1}</span>` : `<span class="own">${v.owner==='Louka'?'L':'N'}</span>`;
       return `<button class="row ${v.id===selected?'sel':''} ${isOverdue(v)?'overdue':''}" data-id="${v.id}" style="--c:var(--s-${v.stage})">
         <span class="pitch"></span>
         <span><div class="name">${esc(v.name)}</div><div class="meta">${esc(meta)}</div></span>
-        <span class="own">${v.owner==='Louka'?'L':'N'}</span></button>`;
+        ${tail}</button>`;
     }).join('');
     $('#list').querySelectorAll('.row').forEach(b => b.onclick = () => select(b.dataset.id, true));
   }
 
   // ---------- detail ----------
   function select(id, fly){
+    if (planning){ togglePlanStop(id); return; }
     selected = id; editing = false;
     const v = venues.find(x=>x.id===id);
     if (v && fly) map.flyTo([v.lat, v.lng], Math.max(map.getZoom(), 14), {duration:.5});
@@ -545,7 +607,7 @@
 
   // ---------- render ----------
   function renderDraftbar(){ $('#draftbar').classList.toggle('show', hasDraft); $('#btnDiscard').style.display = hasDraft ? '' : 'none'; }
-  function renderAll(){ renderStages(); renderSummary(); renderList(); syncMarkers(); renderDetail(); renderDraftbar(); }
+  function renderAll(){ renderStages(); renderSummary(); renderList(); syncMarkers(); renderDetail(); renderDraftbar(); renderPlanbar(); }
 
   // ---------- boot ----------
   load().then(() => {
@@ -553,11 +615,16 @@
     $('#btnEdit').onclick = () => setEditor(!document.body.classList.contains('editor'));
     $('#btnExport').onclick = exportJSON;
     $('#btnPDF').onclick = exportPDF;
+    $('#btnPlan').onclick = () => { planning = !planning; if (planning){ selected = null; editing = false; } renderAll(); };
+    $('#btnPlanDone').onclick = $('#btnPlan').onclick;
+    $('#btnPlanClear').onclick = () => { planSeq = []; localStorage.setItem(PLAN_KEY, '[]'); renderAll(); };
+    $('#btnPlanPDF').onclick = exportPlanPDF;
     $('#btnAdd').onclick = addVenue;
     $('#btnDiscard').onclick = () => { if (confirm('Discard the unpublished draft on this device?')) discardDraft(); };
     document.addEventListener('keydown', e => {
       if (e.key !== 'Escape') return;
       if (picking){ stopPicking(); return; }
+      if (planning){ planning = false; renderAll(); return; }
       if (selected) close();
     });
     renderAll();
