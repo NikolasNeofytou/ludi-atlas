@@ -1,0 +1,200 @@
+[
+ {
+  "id": "wembley-ypsonas",
+  "name": "Wembley Ypsonas Mini Football",
+  "area": "Ypsonas",
+  "lat": 34.6815588,
+  "lng": 32.9769757,
+  "place_id": "ChIJR3qJB5Ax5xQRPS_iB82GADA",
+  "operator": "",
+  "phone": "+357 99 582008",
+  "pitches": "1× 9v9, 2× 5v5 (new turf)",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "cash-only café",
+   "parties"
+  ],
+  "log": []
+ },
+ {
+  "id": "football-park",
+  "name": "Football Park",
+  "area": "Limassol centre",
+  "lat": 34.6843509,
+  "lng": 33.0252115,
+  "place_id": "ChIJCWOlq68z5xQR5HGi6MZB1jQ",
+  "operator": "",
+  "phone": "+357 99 446965",
+  "pitches": "unknown — turf ageing",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "corporate events",
+   "big parking"
+  ],
+  "log": []
+ },
+ {
+  "id": "lanitio-mini",
+  "name": "Lanitio Mini Football",
+  "area": "Lanitio",
+  "lat": 34.6884703,
+  "lng": 33.0400352,
+  "place_id": "ChIJmWyF4QEz5xQRUjCDiFyqhC0",
+  "operator": "",
+  "phone": "+357 25 315757",
+  "pitches": "unknown — showers, shop",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "owner-run"
+  ],
+  "log": []
+ },
+ {
+  "id": "valley-sports-arena",
+  "name": "Valley Sports Arena",
+  "area": "Germasogeia",
+  "lat": 34.711282,
+  "lng": 33.0908847,
+  "place_id": "ChIJ87i4ckbL4BQRImRJMrRY_c4",
+  "operator": "",
+  "phone": "+357 25 329888",
+  "pitches": "8/9-a-side + futsal; recurring team blocks",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "recurring teams",
+   "has website"
+  ],
+  "log": []
+ },
+ {
+  "id": "minalido",
+  "name": "Minalido Sports Center",
+  "area": "Germasogeia",
+  "lat": 34.7172697,
+  "lng": 33.0888432,
+  "place_id": "ChIJoydpEdTL4BQRbOV8PAzrNkw",
+  "operator": "",
+  "phone": "+357 99 841877",
+  "pitches": "unknown — café, parties",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "parties"
+  ],
+  "log": []
+ },
+ {
+  "id": "kick-on-fives",
+  "name": "Kick on Fives",
+  "area": "Kato Polemidia",
+  "lat": 34.6862041,
+  "lng": 33.0136104,
+  "place_id": "ChIJg-DLPTgz5xQRmdHuKHhynC8",
+  "operator": "same phone as 4U Padel",
+  "phone": "+357 99 555222",
+  "pitches": "unknown",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "multi-venue operator?",
+   "parties"
+  ],
+  "log": []
+ },
+ {
+  "id": "megasport",
+  "name": "MegaSport Mini Football Club",
+  "area": "Roosevelt Ave",
+  "lat": 34.6616285,
+  "lng": 33.0130013,
+  "place_id": "ChIJ50hXPEAy5xQR-B7JOIT1l48",
+  "operator": "",
+  "phone": "+357 25 575655",
+  "pitches": "unknown — no online footprint",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify"
+  ],
+  "log": []
+ },
+ {
+  "id": "lsc-sporting",
+  "name": "LSC Sporting Center",
+  "area": "Kato Polemidia",
+  "lat": 34.7032862,
+  "lng": 32.9882406,
+  "place_id": "ChIJ--ttz38x5xQRieDan30oIbs",
+  "operator": "",
+  "phone": "",
+  "pitches": "unknown",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "parties"
+  ],
+  "log": []
+ },
+ {
+  "id": "nais",
+  "name": "NAIS Sports Club",
+  "area": "Germasogeia",
+  "lat": 34.709074,
+  "lng": 33.0874723,
+  "place_id": "ChIJs14-0vjL4BQRXjGkc5HddLs",
+  "operator": "",
+  "phone": "+357 97 749750",
+  "pitches": "padel-first; 1 small pitch",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "padel-first",
+   "secondary"
+  ],
+  "log": []
+ },
+ {
+  "id": "goall",
+  "name": "goALL Padel Centers",
+  "area": "Limassol north",
+  "lat": 34.7033799,
+  "lng": 33.0245359,
+  "place_id": "ChIJp3-rU3Mz5xQRszWXyTwHs9o",
+  "operator": "",
+  "phone": "+357 97 443000",
+  "pitches": "padel-first; 1× 5v5",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "padel-first",
+   "secondary"
+  ],
+  "log": []
+ }
+]

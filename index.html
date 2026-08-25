@@ -1,0 +1,504 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Ludi · Limassol venue atlas</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
+<style>
+  :root{
+    /* Chalk & Aegean — packages/ui/src/tokens.ts. App is light-only. */
+    --night:#F2F4F3;      /* page ground (app: bg) */
+    --turf:#FFFFFF;       /* panel (app: surface) */
+    --turf-2:#DCE9EC;     /* hover / selected (app: primarySoft) */
+    --line:rgba(16,24,28,.12);  /* hairline (app: lineBold) */
+    --chalk:#10181C;      /* primary text (app: ink) */
+    --chalk-dim:#3F4C51;  /* secondary text (app: ink2) */
+    --chalk-mute:#5F6E73; /* tertiary (app: ink3) */
+    --overdue:#C1502E;      /* rings & fills (app: alert) */
+    --overdue-deep:#8B3415; /* overdue TEXT — alert fails AA at text size (app: alertDeep) */
+
+    --s-unqualified:#5F6E73;  /* app: ink3 */
+    --s-contacted:#D99520;    /* app: sun */
+    --s-visited:#8A5A0E;      /* app: sunDeep */
+    --s-proposal:#175E77;     /* app: primary (Aegean) */
+    --s-onboarding:#35836B;   /* derived — Aegean→pitch midpoint */
+    --s-live:#1F6640;         /* app: pitch (success / bookable) */
+    --s-lost:#7E4A4A;         /* derived — desaturated alert */
+
+    --display:'Fraunces',Georgia,serif;
+    --body:system-ui,-apple-system,'Segoe UI',sans-serif;
+    --mono:'JetBrains Mono',ui-monospace,monospace;
+    --panel-w:380px;
+  }
+  *{box-sizing:border-box}
+  html,body{height:100%;margin:0;background:var(--night);color:var(--chalk);font-family:var(--body);font-size:14px;-webkit-font-smoothing:antialiased}
+  button{font:inherit;color:inherit;background:none;border:0;cursor:pointer}
+  button:focus-visible,input:focus-visible,select:focus-visible,textarea:focus-visible{outline:2px solid var(--s-live);outline-offset:2px}
+
+  /* ---------- shell ---------- */
+  #app{display:grid;grid-template-rows:auto auto 1fr;grid-template-columns:minmax(0,1fr);height:100%;width:100%;overflow:hidden}
+  header{grid-row:1;min-width:0}
+  .draftbar{grid-row:2}
+  main{grid-row:3;min-width:0}
+  header{display:flex;align-items:center;gap:18px;padding:10px 16px;border-bottom:1px solid var(--line);background:var(--turf);z-index:1001}
+  .brand{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.04em;text-transform:uppercase;line-height:1;display:flex;align-items:baseline;gap:10px;white-space:nowrap}
+  .brand small{font-family:var(--mono);font-weight:400;font-size:11px;letter-spacing:.08em;color:var(--chalk-dim);text-transform:none}
+  .stages{display:flex;gap:6px;flex:1;min-width:0;overflow-x:auto;scrollbar-width:none}
+  .stages::-webkit-scrollbar{display:none}
+  .chip{display:flex;align-items:center;gap:6px;padding:5px 9px;border:1px solid var(--line);border-radius:3px;font-family:var(--display);font-weight:500;font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--chalk-dim);white-space:nowrap;flex-shrink:0}
+  .chip .dot{width:9px;height:9px;border-radius:1px;background:var(--c)}
+  .chip .n{font-family:var(--mono);font-size:12px;color:var(--chalk)}
+  .chip.on{color:var(--chalk);background:var(--turf-2);border-color:var(--c)}
+  .tools{display:flex;gap:8px;align-items:center;flex-shrink:0}
+  .btn{padding:7px 12px;border:1px solid var(--line);border-radius:3px;font-family:var(--display);font-weight:500;font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--chalk)}
+  .btn:hover{background:var(--turf-2)}
+  .btn.primary{background:var(--s-live);color:var(--night);border-color:var(--s-live)}
+  .btn.ghost{color:var(--chalk-dim)}
+  .btn[disabled]{opacity:.4;cursor:not-allowed}
+  .editflag{font-family:var(--mono);font-size:11px;letter-spacing:.08em;color:var(--s-live);display:none}
+  body.editor .editflag{display:inline}
+
+  main{position:relative;display:grid;grid-template-columns:var(--panel-w) 1fr;min-height:0}
+  #map{background:var(--night)}
+  .leaflet-container{font-family:var(--body)}
+  .leaflet-control-attribution{background:rgba(255,255,255,.8)!important;color:var(--chalk-mute)!important;font-size:10px}
+  .leaflet-control-attribution a{color:var(--chalk-dim)!important}
+  .leaflet-bar a{background:var(--turf)!important;color:var(--chalk)!important;border-color:var(--line)!important}
+
+  /* ---------- panel ---------- */
+  aside{border-right:1px solid var(--line);background:var(--turf);display:flex;flex-direction:column;min-height:0}
+  .summary{padding:14px 16px 10px;border-bottom:1px solid var(--line)}
+  .summary .big{font-family:var(--display);font-weight:600;font-size:44px;line-height:.9;letter-spacing:.01em}
+  .summary .big span{color:var(--chalk-mute);font-weight:500}
+  .summary .sub{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--chalk-dim);margin-top:6px}
+  .summary .sub b{color:var(--overdue-deep);font-weight:500}
+  .list{overflow:auto;flex:1}
+  .row{display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--line);text-align:left;width:100%}
+  .row:hover,.row.sel{background:var(--turf-2)}
+  .row .pitch{width:22px;height:14px;border:1.5px solid var(--c);border-radius:2px;position:relative;background:color-mix(in srgb,var(--c) 28%,transparent)}
+  .row .pitch::after{content:"";position:absolute;left:50%;top:-1.5px;bottom:-1.5px;width:1.5px;background:var(--c)}
+  .row .name{font-family:var(--display);font-weight:500;font-size:18px;line-height:1;letter-spacing:.02em}
+  .row .meta{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);margin-top:4px;letter-spacing:.03em}
+  .row .own{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);border:1px solid var(--line);padding:2px 6px;border-radius:2px}
+  .row.overdue .meta{color:var(--overdue-deep)}
+  .empty{padding:40px 16px;color:var(--chalk-dim);font-family:var(--mono);font-size:12px;line-height:1.6}
+
+  /* ---------- detail ---------- */
+  #detail{position:absolute;top:0;bottom:0;left:var(--panel-w);width:min(420px,calc(100% - var(--panel-w)));background:var(--turf);border-right:1px solid var(--line);z-index:1000;display:none;flex-direction:column;min-height:0;box-shadow:12px 0 40px rgba(16,24,28,.14)}
+  #detail.open{display:flex}
+  .d-head{padding:16px 18px 12px;border-bottom:1px solid var(--line);display:flex;gap:12px;align-items:flex-start}
+  .d-head .stagebar{width:6px;align-self:stretch;background:var(--c);border-radius:2px}
+  .d-head h2{margin:0;font-family:var(--display);font-weight:600;font-size:30px;line-height:.95;letter-spacing:.01em}
+  .d-head .area{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);letter-spacing:.06em;margin-top:6px}
+  .d-head .x{margin-left:auto;font-family:var(--mono);color:var(--chalk-dim);padding:4px 8px}
+  .d-body{overflow:auto;padding:14px 18px 24px;display:flex;flex-direction:column;gap:14px}
+  .field label{display:block;font-family:var(--mono);font-size:10.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--chalk-dim);margin-bottom:5px}
+  .field .v{font-size:14px;line-height:1.45;white-space:pre-wrap}
+  .field .v.mono{font-family:var(--mono);font-size:12.5px}
+  .field .v a{color:var(--s-proposal);text-decoration:none}
+  .field .v.none{color:var(--chalk-mute);font-style:italic}
+  .grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+  input,select,textarea{width:100%;background:var(--night);color:var(--chalk);border:1px solid var(--line);border-radius:3px;padding:8px 10px;font-family:var(--body);font-size:14px}
+  textarea{min-height:64px;resize:vertical}
+  select{font-family:var(--display);font-weight:500;font-size:16px;letter-spacing:.04em;text-transform:uppercase}
+  .flags{display:flex;flex-wrap:wrap;gap:6px}
+  .flag{font-family:var(--mono);font-size:11px;padding:3px 7px;border:1px solid var(--line);border-radius:2px;color:var(--chalk-dim)}
+  .flag.on{color:var(--night);background:var(--chalk);border-color:var(--chalk)}
+  .locrow{display:grid;grid-template-columns:1fr auto auto;gap:8px}
+  .locres{display:flex;flex-direction:column;gap:5px;margin-top:8px}
+  .lochit{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:3px;padding:7px 10px;text-align:left}
+  .lochit:hover{background:var(--turf-2)}
+  .lochit .nm{font-size:13px;line-height:1.3}
+  .lochit .ar{font-family:var(--mono);font-size:10.5px;color:var(--chalk-dim)}
+  .lochit .use{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--s-proposal);white-space:nowrap}
+  .locstatus{font-family:var(--mono);font-size:11px;color:var(--chalk-mute);margin-top:6px}
+  .pickdot{width:14px;height:14px;border-radius:50%;border:2px solid var(--turf);background:var(--s-proposal);box-shadow:0 0 0 2px var(--s-proposal),0 2px 6px rgba(16,24,28,.3)}
+  #pickhint{position:fixed;top:64px;left:50%;transform:translateX(-50%);z-index:2001;background:var(--chalk);color:var(--night);font-family:var(--mono);font-size:12px;padding:8px 14px;border-radius:3px;display:none}
+  body.picking #pickhint{display:block}
+  body.picking #detail.open{display:none}
+  body.picking #map{cursor:crosshair}
+  .log{display:flex;flex-direction:column;gap:8px}
+  .log .e{display:grid;grid-template-columns:78px 1fr;gap:10px;font-size:13px;line-height:1.45}
+  .log .e time{font-family:var(--mono);font-size:11px;color:var(--chalk-dim);padding-top:2px}
+  .logadd{display:grid;grid-template-columns:1fr auto;gap:8px}
+  .stagecard{display:flex;align-items:center;gap:10px;padding:10px 12px;border:1px solid var(--c);border-radius:3px;background:color-mix(in srgb,var(--c) 14%,transparent)}
+  .stagecard .lbl{font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.05em;text-transform:uppercase;color:var(--c)}
+  .stagecard .due{margin-left:auto;font-family:var(--mono);font-size:11px;color:var(--chalk-dim)}
+  .stagecard .due.overdue{color:var(--overdue-deep)}
+  .d-foot{padding:12px 18px;border-top:1px solid var(--line);display:flex;gap:8px;justify-content:flex-end}
+  .editor-only{display:none}
+  body.editor .editor-only{display:inline-block}
+  body.editor .reader-only{display:none}
+  .d-foot.editor-only{display:none}
+  body.editor .d-foot.editor-only{display:flex}
+  .readhint{font-family:var(--mono);font-size:11px;color:var(--chalk-mute);line-height:1.6}
+
+  /* ---------- markers ---------- */
+  .pin{width:24px;height:16px;border:2px solid var(--c);border-radius:2px;background:color-mix(in srgb,var(--c) 45%,var(--night));position:relative;box-shadow:0 2px 6px rgba(16,24,28,.22);transition:transform .12s}
+  .pin::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;background:var(--c);transform:translateX(-50%)}
+  .pin.overdue{box-shadow:0 0 0 3px var(--overdue),0 2px 6px rgba(16,24,28,.22)}
+  .pin.louka::before{content:"L";position:absolute;right:-9px;top:-9px;width:14px;height:14px;border-radius:50%;background:var(--chalk);color:var(--night);font:700 9px/14px var(--mono);text-align:center}
+  .pin:hover,.leaflet-marker-icon.sel .pin{transform:scale(1.25)}
+  .leaflet-tooltip.lbl{background:var(--night);color:var(--chalk);border:1px solid var(--line);font-family:var(--display);font-weight:700;font-size:15px;letter-spacing:.03em;padding:3px 8px;border-radius:2px;box-shadow:none}
+  .leaflet-tooltip-top.lbl::before{border-top-color:var(--line)}
+
+  /* ---------- toast ---------- */
+  #toast{position:fixed;left:50%;bottom:20px;transform:translateX(-50%);background:var(--chalk);color:var(--night);font-family:var(--mono);font-size:12px;padding:8px 14px;border-radius:3px;z-index:2000;opacity:0;transition:opacity .2s;pointer-events:none}
+  #toast.show{opacity:1}
+  .draftbar{display:none;align-items:center;gap:10px;padding:8px 16px;background:color-mix(in srgb,var(--s-contacted) 18%,var(--turf));border-bottom:1px solid var(--line);font-family:var(--mono);font-size:11px;letter-spacing:.04em;color:var(--chalk)}
+  .draftbar.show{display:flex}
+  .draftbar .btn{font-size:13px;padding:4px 8px}
+
+  /* ---------- mobile ---------- */
+  @media (max-width:820px){
+    :root{--panel-w:100%}
+    header{gap:10px;padding:8px 12px}
+    .brand small{display:none}
+    main{grid-template-columns:1fr;grid-template-rows:1fr auto}
+    #map{grid-row:1}
+    aside{grid-row:2;border-right:0;border-top:1px solid var(--line);max-height:42vh}
+    .summary{padding:10px 14px 8px}
+    .summary .big{font-size:32px}
+    #detail{left:0;width:100%;top:auto;height:min(78vh,100%);border-right:0;border-top:1px solid var(--line);box-shadow:0 -12px 40px rgba(16,24,28,.16)}
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+<div id="app">
+  <header>
+    <div class="brand">Ludi <small>Limassol venue atlas</small><span class="editflag">● editor</span></div>
+    <div class="stages" id="stages"></div>
+    <div class="tools">
+      <button class="btn ghost" id="btnDiscard" title="Discard unsaved draft" style="display:none">Discard draft</button>
+      <button class="btn editor-only" id="btnExport" title="Download venues.json to commit">Export JSON</button>
+      <button class="btn editor-only" id="btnAdd">+ Venue</button>
+      <button class="btn ghost editor-only" id="btnEdit" title="Switch to reader view">Reader view</button>
+    </div>
+  </header>
+  <div class="draftbar" id="draftbar">Unpublished draft on this device — export venues.json and commit to publish.</div>
+  <main>
+    <aside>
+      <div class="summary">
+        <div class="big"><span id="sumTotal">0</span> venues · <span id="sumLive" style="color:var(--s-live);font-weight:600">0</span> live</div>
+        <div class="sub" id="sumSub"></div>
+      </div>
+      <div class="list" id="list"></div>
+    </aside>
+    <div id="map" role="application" aria-label="Map of Limassol venues"></div>
+    <section id="detail" aria-live="polite"></section>
+  </main>
+</div>
+<div id="pickhint">Click the map to place the pin — Esc to cancel</div>
+<div id="toast" role="status"></div>
+
+<script id="venues-embedded" type="application/json">
+[
+ {"id":"wembley-ypsonas","name":"Wembley Ypsonas Mini Football","area":"Ypsonas","lat":34.6815588,"lng":32.9769757,"place_id":"ChIJR3qJB5Ax5xQRPS_iB82GADA","operator":"","phone":"+357 99 582008","pitches":"1× 9v9, 2× 5v5 (new turf)","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["cash-only café","parties"],"log":[]},
+ {"id":"football-park","name":"Football Park","area":"Limassol centre","lat":34.6843509,"lng":33.0252115,"place_id":"ChIJCWOlq68z5xQR5HGi6MZB1jQ","operator":"","phone":"+357 99 446965","pitches":"unknown — turf ageing","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["corporate events","big parking"],"log":[]},
+ {"id":"lanitio-mini","name":"Lanitio Mini Football","area":"Lanitio","lat":34.6884703,"lng":33.0400352,"place_id":"ChIJmWyF4QEz5xQRUjCDiFyqhC0","operator":"","phone":"+357 25 315757","pitches":"unknown — showers, shop","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["owner-run"],"log":[]},
+ {"id":"valley-sports-arena","name":"Valley Sports Arena","area":"Germasogeia","lat":34.711282,"lng":33.0908847,"place_id":"ChIJ87i4ckbL4BQRImRJMrRY_c4","operator":"","phone":"+357 25 329888","pitches":"8/9-a-side + futsal; recurring team blocks","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["recurring teams","has website"],"log":[]},
+ {"id":"minalido","name":"Minalido Sports Center","area":"Germasogeia","lat":34.7172697,"lng":33.0888432,"place_id":"ChIJoydpEdTL4BQRbOV8PAzrNkw","operator":"","phone":"+357 99 841877","pitches":"unknown — café, parties","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["has website","parties"],"log":[]},
+ {"id":"kick-on-fives","name":"Kick on Fives","area":"Kato Polemidia","lat":34.6862041,"lng":33.0136104,"place_id":"ChIJg-DLPTgz5xQRmdHuKHhynC8","operator":"same phone as 4U Padel","phone":"+357 99 555222","pitches":"unknown","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["multi-venue operator?","parties"],"log":[]},
+ {"id":"megasport","name":"MegaSport Mini Football Club","area":"Roosevelt Ave","lat":34.6616285,"lng":33.0130013,"place_id":"ChIJ50hXPEAy5xQR-B7JOIT1l48","operator":"","phone":"+357 25 575655","pitches":"unknown — no online footprint","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["needs visit to qualify"],"log":[]},
+ {"id":"lsc-sporting","name":"LSC Sporting Center","area":"Kato Polemidia","lat":34.7032862,"lng":32.9882406,"place_id":"ChIJ--ttz38x5xQRieDan30oIbs","operator":"","phone":"","pitches":"unknown","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["has website","parties"],"log":[]},
+ {"id":"nais","name":"NAIS Sports Club","area":"Germasogeia","lat":34.709074,"lng":33.0874723,"place_id":"ChIJs14-0vjL4BQRXjGkc5HddLs","operator":"","phone":"+357 97 749750","pitches":"padel-first; 1 small pitch","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["padel-first","secondary"],"log":[]},
+ {"id":"goall","name":"goALL Padel Centers","area":"Limassol north","lat":34.7033799,"lng":33.0245359,"place_id":"ChIJp3-rU3Mz5xQRszWXyTwHs9o","operator":"","phone":"+357 97 443000","pitches":"padel-first; 1× 5v5","stage":"unqualified","owner":"Nikolas","next_action":"","next_date":"","flags":["padel-first","secondary"],"log":[]}
+]
+</script>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
+<script>
+(() => {
+  // ---------- constants ----------
+  const STAGES = [
+    ['unqualified','Unqualified'],['contacted','Contacted'],['visited','Visited'],
+    ['proposal','Proposal'],['onboarding','Onboarding'],['live','Live'],['lost','Lost']
+  ];
+  const STAGE_LABEL = Object.fromEntries(STAGES);
+  const OWNERS = ['Nikolas','Louka'];
+  const FLAG_OPTIONS = ['recurring teams','padel-first','parties','cash-only café','uses competitor tool','multi-venue operator?','owner-run','has website','needs visit to qualify','secondary'];
+  const DRAFT_KEY = 'ludi-atlas-draft-v1';
+  const EDIT_KEY  = 'ludi-atlas-editor';
+  const DONE = new Set(['live','lost']);
+
+  // ---------- state ----------
+  let venues = [];
+  let filter = null;      // stage id or null
+  let selected = null;    // venue id
+  let editing = false;    // detail form open
+  let hasDraft = false;
+  const markers = new Map();
+
+  const $ = s => document.querySelector(s);
+  const today = () => new Date().toISOString().slice(0,10);
+  const isOverdue = v => v.next_date && v.next_date < today() && !DONE.has(v.stage);
+  const esc = s => String(s ?? '').replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const toast = m => { const t=$('#toast'); t.textContent=m; t.classList.add('show'); clearTimeout(t._h); t._h=setTimeout(()=>t.classList.remove('show'),2200); };
+
+  // ---------- data loading ----------
+  const embedded = () => JSON.parse($('#venues-embedded').textContent);
+  async function load(){
+    let published = null;
+    try { const r = await fetch('venues.json', {cache:'no-store'}); if (r.ok) published = await r.json(); } catch(e){}
+    const base = published || embedded();
+    const draft = localStorage.getItem(DRAFT_KEY);
+    if (draft){ try { venues = JSON.parse(draft); hasDraft = true; } catch(e){ venues = base; } }
+    else venues = base;
+    venues.forEach(normalize);
+  }
+  function normalize(v){
+    v.flags ||= []; v.log ||= []; v.owner ||= 'Nikolas'; v.stage ||= 'unqualified';
+    v.next_action ||= ''; v.next_date ||= ''; v.operator ||= ''; v.phone ||= ''; v.pitches ||= '';
+  }
+  function saveDraft(){ localStorage.setItem(DRAFT_KEY, JSON.stringify(venues)); hasDraft = true; renderDraftbar(); }
+  function discardDraft(){ localStorage.removeItem(DRAFT_KEY); location.reload(); }
+  function exportJSON(){
+    const blob = new Blob([JSON.stringify(venues, null, 1)], {type:'application/json'});
+    const a = Object.assign(document.createElement('a'), {href:URL.createObjectURL(blob), download:'venues.json'});
+    document.body.appendChild(a); a.click(); a.remove();
+    toast('venues.json downloaded — replace it in the repo and push');
+  }
+
+  // ---------- editor mode ----------
+  function setEditor(on){
+    document.body.classList.toggle('editor', on);
+    localStorage.setItem(EDIT_KEY, on ? '1' : '');
+        if (!on) editing = false;
+    renderDetail();
+  }
+
+  // ---------- map ----------
+  const map = L.map('map', {zoomControl:true, attributionControl:true}).setView([34.695, 33.03], 12);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
+    attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>', maxZoom:19
+  }).addTo(map);
+  L.tileLayer('https://{s}.basemaps.cartocdn.com/light_only_labels/{z}/{x}/{y}{r}.png', {maxZoom:19, pane:'shadowPane'}).addTo(map);
+
+  // ---------- location picking (unregistered pitches: streets / bare coords) ----------
+  let picking = false, pickMarker = null;
+  const pickIcon = L.divIcon({className:'', html:'<div class="pickdot"></div>', iconSize:[14,14], iconAnchor:[7,7]});
+  function showPickMarker(lat,lng){
+    if (!pickMarker) pickMarker = L.marker([lat,lng], {icon:pickIcon, interactive:false}).addTo(map);
+    else pickMarker.setLatLng([lat,lng]);
+  }
+  function stopPicking(){ picking = false; document.body.classList.remove('picking'); }
+  function clearPick(){ stopPicking(); if (pickMarker){ pickMarker.remove(); pickMarker = null; } }
+  map.on('click', e => {
+    if (!picking) return;
+    const lat = +e.latlng.lat.toFixed(6), lng = +e.latlng.lng.toFixed(6);
+    const la = $('#fLat'), ln = $('#fLng');
+    if (la && ln){ la.value = lat; ln.value = lng; }
+    showPickMarker(lat, lng);
+    stopPicking();
+    toast('Pin placed — save to keep it');
+  });
+  async function locSearch(){
+    const q = $('#fLocQ').value.trim(), res = $('#fLocRes'), st = $('#fLocStatus');
+    if (!q) return;
+    st.textContent = 'Searching…'; res.innerHTML = '';
+    try {
+      const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=jsonv2&limit=5&viewbox=32.80,34.85,33.30,34.55&bounded=0&accept-language=en`);
+      const hits = await r.json();
+      st.textContent = hits.length ? '' : 'Nothing found — try adding “Limassol”.';
+      res.innerHTML = hits.map((h,i) => {
+        const parts = h.display_name.split(', ');
+        return `<button type="button" class="lochit" data-hit="${i}"><span><span class="nm">${esc(parts[0])}</span><div class="ar">${esc(parts.slice(1,3).join(', '))}</div></span><span class="use">use ↵</span></button>`;
+      }).join('');
+      res.querySelectorAll('.lochit').forEach(b => b.onclick = () => {
+        const h = hits[+b.dataset.hit], lat = parseFloat(h.lat), lng = parseFloat(h.lon);
+        $('#fLat').value = lat.toFixed(6); $('#fLng').value = lng.toFixed(6);
+        const parts = h.display_name.split(', ');
+        if (!$('#fArea').value.trim()) $('#fArea').value = parts[1] || '';
+        showPickMarker(lat, lng); map.flyTo([lat, lng], Math.max(map.getZoom(), 15), {duration:.5});
+        st.textContent = `Using ${parts[0]} — nudge with “Pick on map” if the pin is off`;
+        res.innerHTML = '';
+      });
+    } catch(e){ st.textContent = 'No connection — search needs internet.'; }
+  }
+
+  function icon(v){
+    const cls = ['pin', isOverdue(v) ? 'overdue' : '', v.owner==='Louka' ? 'louka' : ''].join(' ');
+    return L.divIcon({className:'', html:`<div class="${cls}" style="--c:var(--s-${v.stage})"></div>`, iconSize:[24,16], iconAnchor:[12,8], tooltipAnchor:[0,-10]});
+  }
+  function syncMarkers(){
+    const visible = new Set(filtered().map(v=>v.id));
+    for (const v of venues){
+      let m = markers.get(v.id);
+      if (!m){
+        m = L.marker([v.lat, v.lng], {icon:icon(v), keyboard:true, title:v.name}).bindTooltip(v.name, {className:'lbl', direction:'top'});
+        m.on('click', () => select(v.id, true));
+        markers.set(v.id, m);
+      } else { m.setIcon(icon(v)); m.setLatLng([v.lat, v.lng]); }
+      if (visible.has(v.id)) m.addTo(map); else m.remove();
+      const el = m.getElement(); if (el) el.classList.toggle('sel', v.id===selected);
+    }
+    for (const [id,m] of markers) if (!venues.find(v=>v.id===id)) { m.remove(); markers.delete(id); }
+  }
+
+  // ---------- list & summary ----------
+  const stageOrder = Object.fromEntries(STAGES.map(([k],i)=>[k,i]));
+  const filtered = () => venues.filter(v => !filter || v.stage===filter);
+  function renderStages(){
+    const counts = {}; venues.forEach(v => counts[v.stage]=(counts[v.stage]||0)+1);
+    $('#stages').innerHTML = STAGES.map(([k,l]) =>
+      `<button class="chip ${filter===k?'on':''}" data-stage="${k}" style="--c:var(--s-${k})" aria-pressed="${filter===k}"><span class="dot"></span>${l}<span class="n">${counts[k]||0}</span></button>`).join('');
+    $('#stages').querySelectorAll('.chip').forEach(b => b.onclick = () => { filter = filter===b.dataset.stage ? null : b.dataset.stage; renderAll(); });
+  }
+  function renderSummary(){
+    $('#sumTotal').textContent = venues.length;
+    $('#sumLive').textContent = venues.filter(v=>v.stage==='live').length;
+    const od = venues.filter(isOverdue).length;
+    const active = venues.filter(v=>!DONE.has(v.stage) && v.stage!=='unqualified').length;
+    const louka = venues.filter(v=>v.owner==='Louka').length;
+    $('#sumSub').innerHTML = `${active} in play · ${louka} on Louka` + (od ? ` · <b>${od} overdue</b>` : '');
+  }
+  function renderList(){
+    const rows = filtered().slice().sort((a,b)=> (isOverdue(b)-isOverdue(a)) || (stageOrder[b.stage]-stageOrder[a.stage]) || a.name.localeCompare(b.name));
+    if (!rows.length){ $('#list').innerHTML = `<div class="empty">No venues in this stage yet.<br>Tap a chip above to clear the filter.</div>`; return; }
+    $('#list').innerHTML = rows.map(v => {
+      const meta = isOverdue(v) ? `overdue · ${v.next_action || 'no action set'}` : (v.next_action ? `${v.next_date ? v.next_date+' · ' : ''}${v.next_action}` : `${v.area} · ${STAGE_LABEL[v.stage]}`);
+      return `<button class="row ${v.id===selected?'sel':''} ${isOverdue(v)?'overdue':''}" data-id="${v.id}" style="--c:var(--s-${v.stage})">
+        <span class="pitch"></span>
+        <span><div class="name">${esc(v.name)}</div><div class="meta">${esc(meta)}</div></span>
+        <span class="own">${v.owner==='Louka'?'L':'N'}</span></button>`;
+    }).join('');
+    $('#list').querySelectorAll('.row').forEach(b => b.onclick = () => select(b.dataset.id, true));
+  }
+
+  // ---------- detail ----------
+  function select(id, fly){
+    selected = id; editing = false;
+    const v = venues.find(x=>x.id===id);
+    if (v && fly) map.flyTo([v.lat, v.lng], Math.max(map.getZoom(), 14), {duration:.5});
+    renderAll();
+  }
+  function close(){ selected = null; editing = false; renderAll(); }
+
+  function renderDetail(){
+    const d = $('#detail');
+    const v = venues.find(x=>x.id===selected);
+    if (!v){ clearPick(); d.classList.remove('open'); d.innerHTML=''; return; }
+    d.classList.add('open');
+    const isEditor = document.body.classList.contains('editor');
+    if (isEditor && editing) { renderForm(v); return; }
+    clearPick();
+
+    const due = v.next_date ? `${isOverdue(v)?'overdue ':'due '}${v.next_date}` : '';
+    const field = (l, val, cls='') => `<div class="field"><label>${l}</label><div class="v ${cls} ${val?'':'none'}">${val || 'none'}</div></div>`;
+    const maps = v.place_id ? `https://www.google.com/maps/place/?q=place_id:${encodeURIComponent(v.place_id)}` : '';
+    d.innerHTML = `
+      <div class="d-head" style="--c:var(--s-${v.stage})">
+        <div class="stagebar"></div>
+        <div><h2>${esc(v.name)}</h2><div class="area">${esc(v.area)}${v.operator?' · '+esc(v.operator):''} · ${esc(v.owner)}</div></div>
+        <button class="x" id="dClose" aria-label="Close">✕</button>
+      </div>
+      <div class="d-body">
+        <div class="stagecard" style="--c:var(--s-${v.stage})"><span class="lbl">${STAGE_LABEL[v.stage]}</span><span class="due ${isOverdue(v)?'overdue':''}">${due}</span></div>
+        ${field('Next action', esc(v.next_action))}
+        <div class="grid2">${field('Pitches', esc(v.pitches))}${field('Phone', v.phone ? `<a href="tel:${esc(v.phone.replace(/\s/g,''))}">${esc(v.phone)}</a>` : '', 'mono')}</div>
+        ${v.flags.length ? `<div class="field"><label>Notes on fit</label><div class="flags">${v.flags.map(f=>`<span class="flag on">${esc(f)}</span>`).join('')}</div></div>` : ''}
+        ${maps ? `<div class="field"><label>Map</label><div class="v mono"><a href="${maps}" target="_blank" rel="noopener">Open in Google Maps ↗</a></div></div>` : ''}
+        <div class="field"><label>Log</label>
+          ${v.log.length ? `<div class="log">${v.log.slice().reverse().map(e=>`<div class="e"><time>${esc(e.date)}</time><div>${esc(e.text)}</div></div>`).join('')}</div>` : `<div class="v none">nothing logged yet</div>`}
+        </div>
+        <div class="readhint reader-only">Louka: this view is read-only. Tell Nikolas what happened and he'll log it here.</div>
+      </div>
+      <div class="d-foot editor-only"><button class="btn primary" id="dEdit">Edit venue</button></div>`;
+    $('#dClose').onclick = close;
+    const e = $('#dEdit'); if (e) e.onclick = () => { editing = true; renderDetail(); };
+  }
+
+  function renderForm(v){
+    const d = $('#detail');
+    const opt = (list, cur, lbl) => list.map(k => `<option value="${k}" ${k===cur?'selected':''}>${lbl?lbl[k]:k}</option>`).join('');
+    d.innerHTML = `
+      <div class="d-head" style="--c:var(--s-${v.stage})">
+        <div class="stagebar"></div>
+        <div><h2>Edit</h2><div class="area">${esc(v.name)}</div></div>
+        <button class="x" id="dClose" aria-label="Cancel">✕</button>
+      </div>
+      <div class="d-body">
+        <div class="field"><label>Stage</label><select id="fStage">${opt(STAGES.map(s=>s[0]), v.stage, STAGE_LABEL)}</select></div>
+        <div class="grid2">
+          <div class="field"><label>Owner</label><select id="fOwner">${opt(OWNERS, v.owner)}</select></div>
+          <div class="field"><label>Next action by</label><input id="fDate" type="date" value="${esc(v.next_date)}"></div>
+        </div>
+        <div class="field"><label>Next action</label><input id="fAction" value="${esc(v.next_action)}" placeholder="e.g. call the owner about a Saturday visit"></div>
+        <div class="field"><label>Name</label><input id="fName" value="${esc(v.name)}"></div>
+        <div class="grid2">
+          <div class="field"><label>Area</label><input id="fArea" value="${esc(v.area)}"></div>
+          <div class="field"><label>Operator</label><input id="fOperator" value="${esc(v.operator)}" placeholder="who owns / runs it"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Phone</label><input id="fPhone" value="${esc(v.phone)}"></div>
+          <div class="field"><label>Pitches</label><input id="fPitches" value="${esc(v.pitches)}" placeholder="2× 5v5, 1× 9v9"></div>
+        </div>
+        <div class="field"><label>Locate — search a street or place, or drop the pin yourself</label>
+          <div class="locrow"><input id="fLocQ" placeholder="e.g. Anexartisias, Zakaki, a futsal name…"><button type="button" class="btn" id="fLocGo">Search</button><button type="button" class="btn" id="fLocPick">Pick on map</button></div>
+          <div class="locres" id="fLocRes"></div><div class="locstatus" id="fLocStatus"></div>
+        </div>
+        <div class="grid2">
+          <div class="field"><label>Lat</label><input id="fLat" type="number" step="any" value="${v.lat}"></div>
+          <div class="field"><label>Lng</label><input id="fLng" type="number" step="any" value="${v.lng}"></div>
+        </div>
+        <div class="field"><label>Notes on fit</label><div class="flags" id="fFlags">${FLAG_OPTIONS.map(f=>`<button type="button" class="flag ${v.flags.includes(f)?'on':''}" data-f="${esc(f)}" aria-pressed="${v.flags.includes(f)}">${esc(f)}</button>`).join('')}</div></div>
+        <div class="field"><label>Add to log</label><div class="logadd"><textarea id="fLog" placeholder="What happened? Dated automatically."></textarea></div></div>
+        <div class="field"><button class="btn ghost" id="fDelete" style="color:var(--overdue-deep)">Remove venue</button></div>
+      </div>
+      <div class="d-foot editor-only"><button class="btn ghost" id="fCancel">Cancel</button><button class="btn primary" id="fSave">Save changes</button></div>`;
+    $('#dClose').onclick = $('#fCancel').onclick = () => { editing=false; renderDetail(); };
+    $('#fLocGo').onclick = locSearch;
+    $('#fLocQ').addEventListener('keydown', e => { if (e.key==='Enter'){ e.preventDefault(); locSearch(); } });
+    $('#fLocPick').onclick = () => { picking = true; document.body.classList.add('picking'); };
+    $('#fFlags').querySelectorAll('.flag').forEach(b => b.onclick = () => { b.classList.toggle('on'); b.setAttribute('aria-pressed', b.classList.contains('on')); });
+    $('#fDelete').onclick = () => { if (confirm(`Remove ${v.name} from the atlas?`)) { venues = venues.filter(x=>x.id!==v.id); saveDraft(); close(); toast('Venue removed'); } };
+    $('#fSave').onclick = () => {
+      const prevStage = v.stage;
+      v.stage = $('#fStage').value; v.owner = $('#fOwner').value; v.next_date = $('#fDate').value; v.next_action = $('#fAction').value.trim();
+      v.name = $('#fName').value.trim() || v.name; v.area = $('#fArea').value.trim(); v.operator = $('#fOperator').value.trim();
+      v.phone = $('#fPhone').value.trim(); v.pitches = $('#fPitches').value.trim();
+      v.lat = parseFloat($('#fLat').value) || v.lat; v.lng = parseFloat($('#fLng').value) || v.lng;
+      v.flags = [...$('#fFlags').querySelectorAll('.flag.on')].map(b=>b.dataset.f);
+      const note = $('#fLog').value.trim();
+      if (prevStage !== v.stage) v.log.push({date:today(), text:`Stage → ${STAGE_LABEL[v.stage]}${note?' — '+note:''}`});
+      else if (note) v.log.push({date:today(), text:note});
+      saveDraft(); editing=false; renderAll(); toast('Saved to draft');
+    };
+  }
+
+  function addVenue(){
+    const c = map.getCenter();
+    const id = 'venue-' + Date.now().toString(36);
+    const v = {id, name:'New venue', area:'', lat:+c.lat.toFixed(6), lng:+c.lng.toFixed(6), place_id:'', operator:'', phone:'', pitches:'', stage:'unqualified', owner:'Nikolas', next_action:'', next_date:'', flags:[], log:[]};
+    venues.push(v); saveDraft(); selected = id; editing = true; renderAll();
+  }
+
+  // ---------- render ----------
+  function renderDraftbar(){ $('#draftbar').classList.toggle('show', hasDraft); $('#btnDiscard').style.display = hasDraft ? '' : 'none'; }
+  function renderAll(){ renderStages(); renderSummary(); renderList(); syncMarkers(); renderDetail(); renderDraftbar(); }
+
+  // ---------- boot ----------
+  load().then(() => {
+    setEditor(!!localStorage.getItem(EDIT_KEY) || new URLSearchParams(location.search).has('edit'));
+    $('#btnEdit').onclick = () => setEditor(!document.body.classList.contains('editor'));
+    $('#btnExport').onclick = exportJSON;
+    $('#btnAdd').onclick = addVenue;
+    $('#btnDiscard').onclick = () => { if (confirm('Discard the unpublished draft on this device?')) discardDraft(); };
+    document.addEventListener('keydown', e => {
+      if (e.key !== 'Escape') return;
+      if (picking){ stopPicking(); return; }
+      if (selected) close();
+    });
+    renderAll();
+    map.invalidateSize();
+    if (venues.length) map.fitBounds(L.latLngBounds(venues.map(v=>[v.lat,v.lng])).pad(0.18));
+    new ResizeObserver(()=>map.invalidateSize()).observe($('#map'));
+  });
+})();
+</script>
+</body>
+</html>
