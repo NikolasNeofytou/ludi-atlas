@@ -1,7 +1,9 @@
-# Ludi · Limassol venue atlas
+# Ludi · Cyprus venue atlas
 
-One page, one map, every Limassol pitch and where it stands in the pipeline.
-Nikolas edits; Louka reads.
+One page, one map, every commercial pitch in Cyprus and where it stands in the
+pipeline. Nikolas edits; Louka reads. A district selector in the panel scopes the
+list, the map, the counts, and the PDF brief (venues without a district count as
+Limassol, the original patch).
 
 ## Files
 - `index.html` — the atlas (Leaflet + CARTO tiles, no build step, no keys)
@@ -26,7 +28,7 @@ Nikolas edits; Louka reads.
 Push this folder to a GitHub repo, enable Pages from the root of `main`. Share the plain URL with Louka; keep `?edit` to yourself.
 
 ## Data model (per venue)
-`id, name, area, lat, lng, place_id, operator, phone, pitches, stage, owner, next_action, next_date, flags[], log[{date,text}]`
+`id, name, area, district, lat, lng, place_id, operator, phone, pitches, stage, owner, next_action, next_date, flags[], log[{date,text}]`
 
 Stages: unqualified → contacted → visited → proposal → onboarding → live, or lost.
 A pin gets a red ring when `next_date` is in the past and the venue is neither live nor lost.

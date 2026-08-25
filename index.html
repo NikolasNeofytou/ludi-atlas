@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<title>Ludi · Limassol venue atlas</title>
+<title>Ludi · Cyprus venue atlas</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@500;600&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css">
@@ -76,6 +76,7 @@
   .summary .big span{color:var(--chalk-mute);font-weight:500}
   .summary .sub{font-family:var(--mono);font-size:11px;letter-spacing:.06em;color:var(--chalk-dim);margin-top:6px}
   .summary .sub b{color:var(--overdue-deep);font-weight:500}
+  .summary .distsel{width:auto;margin-top:8px;font-size:13px;padding:4px 8px}
   .list{overflow:auto;flex:1}
   .row{display:grid;grid-template-columns:26px 1fr auto;gap:10px;align-items:center;padding:11px 16px;border-bottom:1px solid var(--line);text-align:left;width:100%}
   .row:hover,.row.sel{background:var(--turf-2)}
@@ -209,7 +210,7 @@
 <body>
 <div id="app">
   <header>
-    <div class="brand">Ludi <small>Limassol venue atlas</small><span class="editflag">● editor</span></div>
+    <div class="brand">Ludi <small>Cyprus venue atlas</small><span class="editflag">● editor</span></div>
     <div class="stages" id="stages"></div>
     <div class="tools">
       <button class="btn ghost" id="btnDiscard" title="Discard unsaved draft" style="display:none">Discard draft</button>
@@ -227,10 +228,14 @@
       <div class="summary">
         <div class="big"><span id="sumTotal">0</span> venues · <span id="sumLive" style="color:var(--s-live);font-weight:600">0</span> live</div>
         <div class="sub" id="sumSub"></div>
+        <select id="distsel" class="distsel" aria-label="District">
+          <option value="all">All Cyprus</option>
+          <option>Limassol</option><option>Larnaca</option><option>Nicosia</option><option>Paphos</option><option>Famagusta</option>
+        </select>
       </div>
       <div class="list" id="list"></div>
     </aside>
-    <div id="map" role="application" aria-label="Map of Limassol venues"></div>
+    <div id="map" role="application" aria-label="Map of Cyprus venues"></div>
     <section id="detail" aria-live="polite"></section>
   </main>
 </div>
@@ -263,6 +268,7 @@
   ];
   const STAGE_LABEL = Object.fromEntries(STAGES);
   const OWNERS = ['Nikolas','Louka'];
+  const DISTRICTS = ['Limassol','Larnaca','Nicosia','Paphos','Famagusta'];
   const FLAG_OPTIONS = ['recurring teams','padel-first','parties','cash-only café','uses competitor tool','multi-venue operator?','owner-run','has website','needs visit to qualify','secondary'];
   const DRAFT_KEY = 'ludi-atlas-draft-v1';
   const EDIT_KEY  = 'ludi-atlas-editor';
@@ -272,6 +278,7 @@
   // ---------- state ----------
   let venues = [];
   let filter = null;      // stage id or null
+  let district = 'all';   // district name or 'all'
   let selected = null;    // venue id
   let editing = false;    // detail form open
   let hasDraft = false;
@@ -299,7 +306,7 @@
     catch(e){ planSeq = []; }
   }
   function normalize(v){
-    v.flags ||= []; v.log ||= []; v.owner ||= 'Nikolas'; v.stage ||= 'unqualified';
+    v.flags ||= []; v.log ||= []; v.owner ||= 'Nikolas'; v.stage ||= 'unqualified'; v.district ||= 'Limassol';
     v.next_action ||= ''; v.next_date ||= ''; v.operator ||= ''; v.phone ||= ''; v.pitches ||= '';
   }
   function saveDraft(){ localStorage.setItem(DRAFT_KEY, JSON.stringify(venues)); hasDraft = true; renderDraftbar(); }
@@ -341,7 +348,7 @@
   function buildPlanReport(){
     const d = today();
     const stops = planSeq.map(id => venues.find(v => v.id === id)).filter(Boolean);
-    return `<div class="r-head"><span class="r-brand">Ludi</span><span class="r-title">Limassol venue atlas — visit plan</span><span class="r-date">${d}</span></div>
+    return `<div class="r-head"><span class="r-brand">Ludi</span><span class="r-title">Cyprus venue atlas — visit plan</span><span class="r-date">${d}</span></div>
       <div class="r-sumline">${stops.length} stop${stops.length===1?'':'s'}, in order</div>
       ${stops.map(stopEntry).join('')}
       <div class="r-foot">Generated ${d} from the atlas · nikolasneofytou.github.io/ludi-atlas</div>`;
@@ -374,7 +381,7 @@
         return `<div class="r-v"><div class="r-nm">${esc(v.name)}<span class="r-own">${esc(v.owner)}</span></div><div class="r-meta">${bits}</div>${fl}${act}${log}</div>`;
       }).join('') + `</section>`;
     }).join('');
-    return `<div class="r-head"><span class="r-brand">Ludi</span><span class="r-title">Limassol venue atlas — pipeline brief${filter?` · ${STAGE_LABEL[filter]} only`:''}</span><span class="r-date">${d}</span></div>
+    return `<div class="r-head"><span class="r-brand">Ludi</span><span class="r-title">Cyprus venue atlas — pipeline brief${district!=='all'?` · ${district}`:''}${filter?` · ${STAGE_LABEL[filter]} only`:''}</span><span class="r-date">${d}</span></div>
       <div class="r-sumline">${pool.length} venue${pool.length===1?'':'s'} · ${pool.filter(v=>v.stage==='live').length} live · ${od.length} overdue</div>
       <div class="r-chips">${chips}</div>
       ${next.length ? `<section class="r-next"><h2>Next steps</h2><table><thead><tr><th>By</th><th>Venue</th><th>Owner</th><th>Action</th></tr></thead><tbody>${nextRows}</tbody></table></section>` : ''}
@@ -395,7 +402,7 @@
   }
 
   // ---------- map ----------
-  const map = L.map('map', {zoomControl:true, attributionControl:true}).setView([34.695, 33.03], 12);
+  const map = L.map('map', {zoomControl:true, attributionControl:true}).setView([35.00, 33.20], 9);
   L.tileLayer('https://{s}.basemaps.cartocdn.com/light_nolabels/{z}/{x}/{y}{r}.png', {
     attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>', maxZoom:19
   }).addTo(map);
@@ -424,9 +431,9 @@
     if (!q) return;
     st.textContent = 'Searching…'; res.innerHTML = '';
     try {
-      const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=jsonv2&limit=5&viewbox=32.80,34.85,33.30,34.55&bounded=0&accept-language=en`);
+      const r = await fetch(`https://nominatim.openstreetmap.org/search?q=${encodeURIComponent(q)}&format=jsonv2&limit=5&viewbox=32.20,35.50,34.10,34.50&bounded=0&accept-language=en`);
       const hits = await r.json();
-      st.textContent = hits.length ? '' : 'Nothing found — try adding “Limassol”.';
+      st.textContent = hits.length ? '' : 'Nothing found — try adding the town or “Cyprus”.';
       res.innerHTML = hits.map((h,i) => {
         const parts = h.display_name.split(', ');
         return `<button type="button" class="lochit" data-hit="${i}"><span><span class="nm">${esc(parts[0])}</span><div class="ar">${esc(parts.slice(1,3).join(', '))}</div></span><span class="use">use ↵</span></button>`;
@@ -466,19 +473,21 @@
 
   // ---------- list & summary ----------
   const stageOrder = Object.fromEntries(STAGES.map(([k],i)=>[k,i]));
-  const filtered = () => venues.filter(v => !filter || v.stage===filter);
+  const inDistrict = v => district==='all' || v.district===district;
+  const filtered = () => venues.filter(v => inDistrict(v) && (!filter || v.stage===filter));
   function renderStages(){
-    const counts = {}; venues.forEach(v => counts[v.stage]=(counts[v.stage]||0)+1);
+    const counts = {}; venues.filter(inDistrict).forEach(v => counts[v.stage]=(counts[v.stage]||0)+1);
     $('#stages').innerHTML = STAGES.map(([k,l]) =>
       `<button class="chip ${filter===k?'on':''}" data-stage="${k}" style="--c:var(--s-${k})" aria-pressed="${filter===k}"><span class="dot"></span>${l}<span class="n">${counts[k]||0}</span></button>`).join('');
     $('#stages').querySelectorAll('.chip').forEach(b => b.onclick = () => { filter = filter===b.dataset.stage ? null : b.dataset.stage; renderAll(); });
   }
   function renderSummary(){
-    $('#sumTotal').textContent = venues.length;
-    $('#sumLive').textContent = venues.filter(v=>v.stage==='live').length;
-    const od = venues.filter(isOverdue).length;
-    const active = venues.filter(v=>!DONE.has(v.stage) && v.stage!=='unqualified').length;
-    const louka = venues.filter(v=>v.owner==='Louka').length;
+    const pool = venues.filter(inDistrict);
+    $('#sumTotal').textContent = pool.length;
+    $('#sumLive').textContent = pool.filter(v=>v.stage==='live').length;
+    const od = pool.filter(isOverdue).length;
+    const active = pool.filter(v=>!DONE.has(v.stage) && v.stage!=='unqualified').length;
+    const louka = pool.filter(v=>v.owner==='Louka').length;
     $('#sumSub').innerHTML = `${active} in play · ${louka} on Louka` + (od ? ` · <b>${od} overdue</b>` : '');
   }
   function renderList(){
@@ -558,13 +567,14 @@
         <div class="field"><label>Next action</label><input id="fAction" value="${esc(v.next_action)}" placeholder="e.g. call the owner about a Saturday visit"></div>
         <div class="field"><label>Name</label><input id="fName" value="${esc(v.name)}"></div>
         <div class="grid2">
+          <div class="field"><label>District</label><select id="fDistrict">${opt(DISTRICTS, v.district)}</select></div>
           <div class="field"><label>Area</label><input id="fArea" value="${esc(v.area)}"></div>
-          <div class="field"><label>Operator</label><input id="fOperator" value="${esc(v.operator)}" placeholder="who owns / runs it"></div>
         </div>
         <div class="grid2">
+          <div class="field"><label>Operator</label><input id="fOperator" value="${esc(v.operator)}" placeholder="who owns / runs it"></div>
           <div class="field"><label>Phone</label><input id="fPhone" value="${esc(v.phone)}"></div>
-          <div class="field"><label>Pitches</label><input id="fPitches" value="${esc(v.pitches)}" placeholder="2× 5v5, 1× 9v9"></div>
         </div>
+        <div class="field"><label>Pitches</label><input id="fPitches" value="${esc(v.pitches)}" placeholder="2× 5v5, 1× 9v9"></div>
         <div class="field"><label>Locate — search a street or place, or drop the pin yourself</label>
           <div class="locrow"><input id="fLocQ" placeholder="e.g. Anexartisias, Zakaki, a futsal name…"><button type="button" class="btn" id="fLocGo">Search</button><button type="button" class="btn" id="fLocPick">Pick on map</button></div>
           <div class="locres" id="fLocRes"></div><div class="locstatus" id="fLocStatus"></div>
@@ -588,6 +598,7 @@
       const prevStage = v.stage;
       v.stage = $('#fStage').value; v.owner = $('#fOwner').value; v.next_date = $('#fDate').value; v.next_action = $('#fAction').value.trim();
       v.name = $('#fName').value.trim() || v.name; v.area = $('#fArea').value.trim(); v.operator = $('#fOperator').value.trim();
+      v.district = $('#fDistrict').value;
       v.phone = $('#fPhone').value.trim(); v.pitches = $('#fPitches').value.trim();
       v.lat = parseFloat($('#fLat').value) || v.lat; v.lng = parseFloat($('#fLng').value) || v.lng;
       v.flags = [...$('#fFlags').querySelectorAll('.flag.on')].map(b=>b.dataset.f);
@@ -601,7 +612,7 @@
   function addVenue(){
     const c = map.getCenter();
     const id = 'venue-' + Date.now().toString(36);
-    const v = {id, name:'New venue', area:'', lat:+c.lat.toFixed(6), lng:+c.lng.toFixed(6), place_id:'', operator:'', phone:'', pitches:'', stage:'unqualified', owner:'Nikolas', next_action:'', next_date:'', flags:[], log:[]};
+    const v = {id, name:'New venue', area:'', district: district!=='all' ? district : 'Limassol', lat:+c.lat.toFixed(6), lng:+c.lng.toFixed(6), place_id:'', operator:'', phone:'', pitches:'', stage:'unqualified', owner:'Nikolas', next_action:'', next_date:'', flags:[], log:[]};
     venues.push(v); saveDraft(); selected = id; editing = true; renderAll();
   }
 
@@ -613,6 +624,11 @@
   load().then(() => {
     setEditor(!!localStorage.getItem(EDIT_KEY) || new URLSearchParams(location.search).has('edit'));
     $('#btnEdit').onclick = () => setEditor(!document.body.classList.contains('editor'));
+    $('#distsel').onchange = e => {
+      district = e.target.value; renderAll();
+      const vs = filtered();
+      if (vs.length) map.fitBounds(L.latLngBounds(vs.map(v=>[v.lat,v.lng])).pad(0.18));
+    };
     $('#btnExport').onclick = exportJSON;
     $('#btnPDF').onclick = exportPDF;
     $('#btnPlan').onclick = () => { planning = !planning; if (planning){ selected = null; editing = false; } renderAll(); };
