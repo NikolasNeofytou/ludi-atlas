@@ -296,6 +296,11 @@
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js"></script>
 <script>
+// Seed the Nicosia visit route (2026-08-28, Larnaca-first) on devices with no plan yet.
+// A cleared plan is '[]', not null, so Clear is respected and this never re-seeds.
+if (localStorage.getItem('ludi-atlas-plan-v1') === null) localStorage.setItem('ludi-atlas-plan-v1', "[\"alion-park\", \"municipal-futsal-tseri\", \"nuevo-campo\", \"city-fields\", \"selecao-fa\", \"strovolos-sport-center\", \"central-park-futsal\", \"gcs-sports-centre\", \"etha-engomi\", \"goall-nicosia\", \"wembley-futsal-fields\", \"paeek-kerynia-sc\", \"futsal-time-thoi\", \"campeone-mini-football\", \"spazio-padel-futsal\", \"da-luz-soccer-fields\", \"ararat-futsal-arena\", \"daka-aglantzia\"]");
+</script>
+<script>
 (() => {
   // ---------- constants ----------
   const STAGES = [
