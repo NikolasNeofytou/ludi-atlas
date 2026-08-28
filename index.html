@@ -698,9 +698,11 @@
       if (selected) close();
     });
     renderAll();
+    // fitBounds against a not-yet-laid-out #map computes zoom 0; defer past first layout, and re-fit on resize while stuck
+    const fitAll = () => { if (venues.length) map.fitBounds(L.latLngBounds(venues.map(v=>[v.lat,v.lng])).pad(0.18)); };
     map.invalidateSize();
-    if (venues.length) map.fitBounds(L.latLngBounds(venues.map(v=>[v.lat,v.lng])).pad(0.18));
-    new ResizeObserver(()=>map.invalidateSize()).observe($('#map'));
+    requestAnimationFrame(() => { map.invalidateSize(); fitAll(); });
+    new ResizeObserver(()=>{ map.invalidateSize(); if (map.getZoom() < 4) fitAll(); }).observe($('#map'));
   });
 })();
 </script>
