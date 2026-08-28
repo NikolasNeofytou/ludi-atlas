@@ -1,0 +1,8 @@
+report.tex
+report.pdf
+*.aux
+*.log
+*.fls
+*.fdb_latexmk
+*.out
+*.xdv
