@@ -29,6 +29,9 @@ district count as Limassol, the original patch).
 
 ## Field crew loop (reader view — Louka & Theophanis)
 - Tap "N on Louka" or "N on Theophanis" in the summary to see only that person's venues.
+- Each venue's sheet has **Navigate** (turn-by-turn in Google Maps) and **Open in
+  Maps** — built from the venue's coordinates, so they work for every venue, with
+  or without a Google listing.
 - Each venue's sheet has **Report back on WhatsApp** — a prefilled report (venue,
   stage, planned action, "what happened: …") they finish and send to Nikolas,
   who logs it and publishes.
