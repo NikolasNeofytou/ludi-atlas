@@ -982,5 +982,110 @@
     "text": "Ghost-verification pass 2026-08-25: Kyrenias 200, same address as Little Kickers; opens 17:00; 'feeling of a real futsal arena' (review, ~3yrs). Almost certainly Ararat FC's club arena. Coordinates street-level. Unverified [B/C]."
    }
   ]
+ },
+ {
+  "id": "ballers-club-cyprus",
+  "name": "Ballers Club Cyprus",
+  "area": "Paralimni (Ayia Napa road)",
+  "district": "Famagusta",
+  "lat": 35.00951,
+  "lng": 33.99603,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 97 000888",
+  "pitches": "1 futsal + 1 padbol + 3 padel — only the padel is bookable online",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "First call of the Famagusta round — they sell padel online and keep the futsal court off the same platform; ask why",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "uses competitor tool",
+   "parties"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Desk scan 2026-09-02: priority 1 of 3, and the only commercial small-sided court found anywhere in the district, in any channel. Nefelis 9, open 08:00–24:00 daily, Google 5.0★ (85 reviews). Padel 1–3 carry bookable slots on their own Playtomic; Futsal and Padbol are listed as sports with no inventory behind them — the padel-tell inside a single operator's account. Unverified [A/B]."
+   }
+  ]
+ },
+ {
+  "id": "ayia-napa-athletic-centre",
+  "name": "Ayia Napa Municipal Athletic Centre (Kokkines)",
+  "area": "Ayia Napa (Kokkines)",
+  "district": "Famagusta",
+  "lat": 34.994,
+  "lng": 34.011,
+  "place_id": "",
+  "operator": "Municipality of Ayia Napa",
+  "phone": "",
+  "pitches": "16 municipal 11v11 pitches — camp and tournament complex, no small-sided court found",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Ask the municipality what the pitches do between camps — off-season and off-peak hours are the only question here",
+  "next_date": "",
+  "flags": [
+   "secondary",
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Desk scan 2026-09-02: the district's real football asset, and not marketplace supply. 16 numbered municipal stadiums off Stadiou St — the base of the Ayia Napa Soccer Festival and the winter camp trade; 14 pitch polygons of 5,000–9,000 m² cross-matched in OpenStreetMap. Listed for coverage and as the camp-economy anchor. Unverified [A/B]."
+   }
+  ]
+ },
+ {
+  "id": "poseidonion-sports-center",
+  "name": "Poseidonion Sports Center",
+  "area": "Paralimni (Ayiou Dimitriou)",
+  "district": "Famagusta",
+  "lat": 35.04796,
+  "lng": 33.98402,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 23 811777",
+  "pitches": "unknown — no website, no hours, unclaimed listing",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "One call: is there a small-sided pitch here at all? Nothing online answers that",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Desk scan 2026-09-02: found only on Maps — 'sports complex', 4 reviews, unclaimed listing, no site, no hours, no photo of a pitch. The Alpha Sports Centre pattern: undiscoverable online, which is exactly the failure Ludi corrects. That it is football at all is unverified [C]."
+   }
+  ]
+ },
+ {
+  "id": "wembley-park-xylofagou",
+  "name": "Wembley Park Athletic Center",
+  "area": "Xylofagou (Famagusta gate)",
+  "district": "Larnaca",
+  "lat": 34.98767,
+  "lng": 33.85098,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 343090",
+  "pitches": "3 mini-football fields + padel; 'Skash' and 'Powerade' courts named on Playtomic",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Verify online football booking — the Playtomic club page 404s today; if football ever sold there it is the first in Cyprus",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "uses competitor tool",
+   "parties"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Desk scan 2026-09-02, Famagusta round: missed by the Larnaca scan of 2026-08-25. Xylofagou is Larnaca district on paper, but the crew drives it on the Famagusta run — it is the western gate of the Kokkinochoria. Boumboulinas 1, 4.8★ (53 reviews), closes 22:00; the reviews are about food and live music, so the pitch calendar competes with an events calendar (the Delle Alpi lesson). Search still indexes Playtomic football courts here ('SKASH', 'POWERADE') but the club page now 404s. Unverified [B]. Unrelated to the Ypsonas, Lakatamia and Paphos Wembleys."
+   }
+  ]
  }
 ]

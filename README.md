@@ -43,7 +43,14 @@ Stages: unqualified → contacted → visited → proposal → onboarding → li
 A pin gets a red ring when `next_date` is in the past and the venue is neither live nor lost.
 
 ## Data provenance
-The six Larnaca venues were seeded 2026-08-25 from the desk research in the Ludi
-repo (`docs/`: Larnaca supply scan + venue profiles, Aug 2026). Coordinates and
-phones are grade-B (platform-listed), nothing verified on site — treat every
-field as a hypothesis until the first visit, per the scan itself.
+Seeded from the desk research in the Ludi repo (`docs/ludi-*-supply-scan.md`):
+Larnaca, Nicosia and Paphos on 2026-08-25, Famagusta on 2026-09-02. Coordinates
+and phones are grade-B (platform-listed) unless a log line says otherwise, and
+nothing is verified on site — treat every field as a hypothesis until the first
+visit, per the scans themselves.
+
+Famagusta is the thinnest district on the island: one commercial small-sided
+court (Ballers Club), one municipal 11v11 camp complex, one unidentified sports
+complex. Wembley Park sits in **Larnaca** district (Xylofagou) but is driven on
+the Famagusta run — switch its district in the editor if you want it on the
+Famagusta brief.
