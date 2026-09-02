@@ -312,7 +312,7 @@
  {
   "id": "alpha-sports-centre",
   "name": "Alpha Sports Centre",
-  "area": "Aradippou corridor",
+  "area": "Dromolaxia (E316)",
   "district": "Larnaca",
   "lat": 34.8983,
   "lng": 33.5791,
@@ -331,6 +331,10 @@
    {
     "date": "2026-08-25",
     "text": "Desk scan Aug 2026: priority 5. No phone, no hours, no web presence — undiscoverable online, which is exactly the failure Ludi corrects. Unverified [B]."
+   },
+   {
+    "date": "2026-09-02",
+    "text": "Corridor re-scan 2026-09-02: partially resolved. It is on the E316 at Dromolaxia, not the Aradippou corridor — coordinates were right, the area label was wrong. Still no phone, hours or site, but 4.2★ (17 reviews) and a separate Alpha Padel Club (Konstantinoupoleos 9, +357 70 000699, two courts, €89/mo membership) now trades inside it on Playtomic — so the site is alive and someone there already sells court time online. One review reads, in full: 'Any one have football team please contact me I want to join??' Unverified [B]."
    }
   ]
  },
@@ -1085,6 +1089,189 @@
    {
     "date": "2026-09-02",
     "text": "Desk scan 2026-09-02, Famagusta round: missed by the Larnaca scan of 2026-08-25. Xylofagou is Larnaca district on paper, but the crew drives it on the Famagusta run — it is the western gate of the Kokkinochoria. Boumboulinas 1, 4.8★ (53 reviews), closes 22:00; the reviews are about food and live music, so the pitch calendar competes with an events calendar (the Delle Alpi lesson). Search still indexes Playtomic football courts here ('SKASH', 'POWERADE') but the club page now 404s. Unverified [B]. Unrelated to the Ypsonas, Lakatamia and Paphos Wembleys."
+   }
+  ]
+ },
+ {
+  "id": "piacere-sports-club",
+  "name": "Piacere Sports Club",
+  "area": "Aradippou (Rizoelias 16)",
+  "district": "Larnaca",
+  "lat": 34.94715,
+  "lng": 33.57473,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 70 075555",
+  "pitches": "covered futsal court + 4 panoramic padel (MejorSet); 06:00–23:30 daily",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Highest-value interview in Larnaca: the island's first futsal operator (1997) just put four padel courts on Playtomic and left the futsal off it — ask why",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "uses competitor tool",
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Corridor re-scan 2026-09-02: missed entirely by the Larnaca scan of 2026-08-25 — it appears in no futsal directory, only on Maps and Playtomic. Claims to be the first futsal venue in Cyprus (1997); reviews describe a new covered court ('you can even play in winter'). Google 4.9★ (34 reviews). Playtomic lists Available sports: Padel only, four courts, 06:00–23:30 — the third Cypriot operator caught selling padel online while keeping football on the phone. Unverified [A/B]."
+   }
+  ]
+ },
+ {
+  "id": "ormidia-futsal",
+  "name": "Ormidia Futsal",
+  "area": "Ormideia (industrial area)",
+  "district": "Larnaca",
+  "lat": 34.99287,
+  "lng": 33.76327,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 087777",
+  "pitches": "unknown — Facebook-only, no hours published",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "The mid-corridor call — the only supply between Larnaca and Xylofagou; establish pitches, hours and how it is booked",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify",
+   "owner-run"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Corridor re-scan 2026-09-02: sits exactly on the Larnaca–Ammochostos road, in the Ormideia industrial area, and was missed by both the Larnaca and the Famagusta scans. Google 5.0★ (7 reviews), owner photos of a pitch, Facebook as its only web surface, no published hours. Ormideia is Dhekelia SBA postcode but Larnaca district. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "balkan-fc-futsal",
+  "name": "Balkan FC futsal",
+  "area": "Paralimni (Panagi Zacharia)",
+  "district": "Famagusta",
+  "lat": 35.04646,
+  "lng": 33.97529,
+  "place_id": "",
+  "operator": "",
+  "phone": "",
+  "pitches": "unknown — no phone, no site, listed 'open 24 hours'",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Ground-truth on the same stop as Poseidonion — they are 600 m apart and both exist only on Maps",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify",
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Corridor re-scan 2026-09-02: second Famagusta venue, found by the Maps channel after the 2026-09-02 scan concluded the district held one. Filed as 'football club', 5.0★ (5 reviews, 'top team'), no contact of any kind — reads club-run rather than rental, but 600 m from Poseidonion, so one stop settles both. Unverified [C]."
+   }
+  ]
+ },
+ {
+  "id": "musits-football-academy",
+  "name": "Musits Football Academy",
+  "area": "Larnaca",
+  "district": "Larnaca",
+  "lat": 34.92519,
+  "lng": 33.6107,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 433887",
+  "pitches": "unknown — academy pitch, no hours published",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "secondary",
+   "recurring teams",
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Corridor re-scan 2026-09-02: academy-first, unclaimed listing, no hours, 4.7★ (13 reviews). The Athletico F.A. pattern — pitch committed to coaching, worth a call only when someone is already in Larnaca. Unverified [C]."
+   }
+  ]
+ },
+ {
+  "id": "kition-athletic-center",
+  "name": "Kition Athletic Center",
+  "area": "Larnaca (GSZ pool)",
+  "district": "Larnaca",
+  "lat": 34.92341,
+  "lng": 33.59894,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 96 877663",
+  "pitches": "indoor hall — home ground of Anorthosis Famagusta Futsal; hourly rental unverified",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "secondary",
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Corridor re-scan 2026-09-02: the district's competitive futsal venue — Anorthosis Famagusta Futsal plays its first-division home games here. Sports complex, 4.3★ (82 reviews), closes 21:30, unclaimed listing. Assembled competitive audience, poor sales target; the Old GSZ logic. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "harakis-nova-sports",
+  "name": "Harakis Nova Sports",
+  "area": "Mesa Geitonia",
+  "district": "Limassol",
+  "lat": 34.70626,
+  "lng": 33.04202,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 95 111444",
+  "pitches": "2 pitches, phone booking, listed open 24 hours",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Call — two pitches, phone-only booking, and a 24-hour listing nobody else in Cyprus matches",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify",
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Found 2026-09-02 by the Maps channel while re-scanning the Larnaca corridor — a Limassol venue missing from the original Limassol seed. 4.7★ (15 reviews); a regular writes '2 decent pitches available for booking via phone call… the pitch to the west is higher quality'. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "marakana-football-arena",
+  "name": "Marakana Football Arena",
+  "area": "Kato Polemidia (Athinas)",
+  "district": "Limassol",
+  "lat": 34.69233,
+  "lng": 32.97711,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 99 991939",
+  "pitches": "unknown — unclaimed listing, closes 22:00",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Found 2026-09-02 by the Maps channel — second Limassol venue missing from the original seed, 300 m from LSC Sporting and Kick on Fives. 3.9★ (34 reviews), buffet on site, unclaimed listing, no website. Unverified [B]."
    }
   ]
  }
