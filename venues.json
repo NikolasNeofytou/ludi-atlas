@@ -385,6 +385,10 @@
    {
     "date": "2026-08-25",
     "text": "Desk scan 2026-08-25: priority 1 of 15. Own booking site, expanding (new pitch under construction) — capital going in is the timing signal. West-belt cluster. Unverified [A/B]."
+   },
+   {
+    "date": "2026-09-02",
+    "text": "Maps re-sweep 2026-09-02: a second Maps record, 'Futsal Thoi / Φούτσαλ ΘΟΙ', sits 400 m away at Akadimias 20 (35.12489, 33.30972) with a different phone — +357 99 920328 — listed open 24 hours, Facebook-only, 4.5★ (17 reviews). Same club with two listings, or two sites. Resolve it on the first call before anyone drives to the wrong gate."
    }
   ]
  },
@@ -410,6 +414,10 @@
    {
     "date": "2026-08-25",
     "text": "Desk scan 2026-08-25: priority 2. 12 pitches on paper, website dead, Facebook-only presence — under-managed or declining, both are openings. Unverified [B]."
+   },
+   {
+    "date": "2026-09-02",
+    "text": "Maps re-sweep 2026-09-02: a second record, 'CAMPEONE SPORTS CENTER', sits 250 m away at 35.12504, 33.28777 on the same phone — same operator, so the '12 pitches' figure may be spread across two addresses. Also 4.3★ (47 reviews) and closing 21:30 on that record, and one review from a month ago alleges a weather-cancellation deposit was promised back repeatedly and never returned. They take deposits and handle them badly: that is the payment conversation, handed over."
    }
   ]
  },
@@ -761,7 +769,7 @@
   "place_id": "",
   "operator": "",
   "phone": "+357 99 540237",
-  "pitches": "3 artificial 5-a-side + 1 padel",
+  "pitches": "2–3 artificial 5-a-side (sources conflict) + 1 padel; open to 01:00",
   "stage": "unqualified",
   "owner": "Nikolas",
   "next_action": "First Paphos call — interview on the walking-football clubs' booking flow and what fills the other mornings",
@@ -774,6 +782,10 @@
    {
     "date": "2026-08-25",
     "text": "Desk scan 2026-08-25: priority 1 of 6. Hosts expat walking-football clubs (Snails WFC, Akamas Turtles) on weekday mornings — the district's only assembled recurring audiences. Owner 'Mr. Andreas', 4.8/5 across 52 reviews. Padel on Playtomic, football by phone. Coordinates approximate (industrial-area pitch nodes). Unverified [B/C]."
+   },
+   {
+    "date": "2026-09-02",
+    "text": "Maps re-sweep 2026-09-02: coordinates confirmed against the Maps record (Kosta Spirou 105, Tremithousa) — no longer approximate. Open until 01:00, 4.8★ across 59 reviews, live 'busier than usual' on a Wednesday afternoon. Two corrections: a review says 'two football fields, good coverage' against our three; and Pafos United Walking Football Club has its own Maps listing AT this venue with a direct number, +357 99 088387 — the district's expat audience, reachable without going through the operator."
    }
   ]
  },
@@ -888,15 +900,15 @@
   "name": "Sportivo Futsal",
   "area": "Paphos (Anavargos)",
   "district": "Paphos",
-  "lat": 34.79197,
-  "lng": 32.43135,
+  "lat": 34.79262,
+  "lng": 32.43231,
   "place_id": "",
   "operator": "",
   "phone": "+357 99 662233",
-  "pitches": "1 indoor mini-soccer, artificial turf",
+  "pitches": "1 indoor mini-soccer, artificial turf; opens 18:00",
   "stage": "unqualified",
   "owner": "Nikolas",
-  "next_action": "Phone-verify still operating and publicly rentable",
+  "next_action": "Confirmed trading — call about hourly rental and what fills the evenings",
   "next_date": "",
   "flags": [
    "needs visit to qualify",
@@ -906,6 +918,10 @@
    {
     "date": "2026-08-25",
     "text": "Desk scan 2026-08-25: priority 6. Tied to a football academy; thin, possibly dormant web presence (last surface: Facebook shell). Unverified [B]."
+   },
+   {
+    "date": "2026-09-02",
+    "text": "Maps re-sweep 2026-09-02: NOT dormant — the 'possibly dormant' note from 2026-08-25 is withdrawn. Trading as 'Sportivo Mini Football' at 34.79262, 32.43231, opens 18:00, active Facebook, 4.6★ (8 reviews) with one two months old. Separately, 'Paphos Warriors FC' is a closed Maps listing 100 m away with decade-old reviews — almost certainly this site's former identity, and one of the district's ghosts resolved."
    }
   ]
  },
@@ -1272,6 +1288,86 @@
    {
     "date": "2026-09-02",
     "text": "Found 2026-09-02 by the Maps channel — second Limassol venue missing from the original seed, 300 m from LSC Sporting and Kick on Fives. 3.9★ (34 reviews), buffet on site, unclaimed listing, no website. Unverified [B]."
+   }
+  ]
+ },
+ {
+  "id": "agios-dometios-sports-centre",
+  "name": "Agios Dometios Sports Centre (municipal)",
+  "area": "Agios Dometios",
+  "district": "Nicosia",
+  "lat": 35.17249,
+  "lng": 33.32284,
+  "place_id": "",
+  "operator": "Municipality of Agios Dometios",
+  "phone": "+357 22 797000",
+  "pitches": "multi-sport municipal complex — courts, squash, gym; football rental basis unverified",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "secondary",
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Maps re-sweep 2026-09-02: third municipal centre in Nicosia, alongside Strovolos and DAKA Aglantzia, and missed by the 2026-08-25 scan because it carries no futsal-directory entry. 4.1★ (70 reviews), closes 20:00, 'busier than usual' on a Wednesday afternoon. Reviews talk courts, squash and gym, not football — verify there is a rentable pitch before treating it as a third price-floor point. Unverified [B/C]."
+   }
+  ]
+ },
+ {
+  "id": "aiantas-paphou-academy",
+  "name": "Aiantas Paphou Sports Academy",
+  "area": "Paphos (Onoufriou Kliridi)",
+  "district": "Paphos",
+  "lat": 34.78339,
+  "lng": 32.42595,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 97 682375",
+  "pitches": "academy pitch — taekwondo-first club, football share unverified",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "",
+  "next_date": "",
+  "flags": [
+   "secondary",
+   "recurring teams",
+   "needs visit to qualify"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Maps re-sweep 2026-09-02: seventh Paphos entry, missed by the 2026-08-25 scan. Own website, 5.0★ across 82 reviews, closes 21:00 — but the reviews are taekwondo, dance and children's summer camps, and only the photo categories mention soccer. Listed for coverage; do not spend a call until something confirms hourly football. Unverified [C]."
+   }
+  ]
+ },
+ {
+  "id": "ys-multi-stadium",
+  "name": "YS Multi Stadium",
+  "area": "Agios Athanasios (Sfalaggiotissis)",
+  "district": "Limassol",
+  "lat": 34.72173,
+  "lng": 33.05213,
+  "place_id": "",
+  "operator": "",
+  "phone": "+357 97 814848",
+  "pitches": "unknown — own website, training sessions and children's parties in the reviews",
+  "stage": "unqualified",
+  "owner": "Nikolas",
+  "next_action": "Call — own website, 73 reviews, and absent from every directory the first Limassol pass used",
+  "next_date": "",
+  "flags": [
+   "has website",
+   "parties",
+   "recurring teams"
+  ],
+  "log": [
+   {
+    "date": "2026-09-02",
+    "text": "Maps re-sweep 2026-09-02: third Limassol venue missing from the original seed, after Harakis Nova and Marakana. 4.4★ (73 reviews), ysmultistadium.com, unclaimed Maps listing; reviews describe training sessions, organised games and birthdays. Unverified [B]."
    }
   ]
  }
