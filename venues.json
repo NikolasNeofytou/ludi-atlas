@@ -209,11 +209,11 @@
  },
  {
   "id": "kamares-futsal",
-  "name": "Kamares Futsal",
-  "area": "Aradippou corridor",
+  "name": "Camares Futsal",
+  "area": "Kamares (west Larnaca)",
   "district": "Larnaca",
-  "lat": 34.9034,
-  "lng": 33.5747,
+  "lat": 34.92088,
+  "lng": 33.604131,
   "place_id": "",
   "operator": "",
   "phone": "+357 97 978757",
@@ -238,6 +238,10 @@
    {
     "date": "2026-09-03",
     "text": "Stage → onboarding. Owner dashboard handover pending: intake call and owner invite still to do. Runbook in the Ludi repo, docs/plans/camares-handover.md."
+   },
+   {
+    "date": "2026-09-12",
+    "text": "Renamed Kamares → Camares Futsal (the venue's own spelling, as in the Ludi app) and pin moved to the building pin the app uses (34.920880, 33.604131, placed 2026-08-22). The old pin sat about 3 km south-west, in Dromolaxia; the \"Aradippou corridor\" area label came from it."
    }
   ]
  },
@@ -330,7 +334,7 @@
   "pitches": "unknown — no public info at all",
   "stage": "unqualified",
   "owner": "Nikolas",
-  "next_action": "Visit in person — no remote assessment possible (same trip as Kamares)",
+  "next_action": "Visit in person — no remote assessment possible (same trip as Camares)",
   "next_date": "",
   "flags": [
    "needs visit to qualify"
