@@ -218,9 +218,9 @@
   "operator": "",
   "phone": "+357 97 978757",
   "pitches": "unknown — 08:00–23:00 daily, cafeteria",
-  "stage": "unqualified",
+  "stage": "onboarding",
   "owner": "Nikolas",
-  "next_action": "Call for a 30-min matchmaking interview — research, not a pitch",
+  "next_action": "Intake call with the paper form (courts, hours, contacts), then invite the owner to the dashboard; ask about the hand-matchmaking on the same call",
   "next_date": "",
   "flags": [
    "owner-run",
@@ -228,8 +228,16 @@
   ],
   "log": [
    {
+    "date": "2026-08-22",
+    "text": "Live in the Ludi app: venue created and one court verified, so players can book."
+   },
+   {
     "date": "2026-08-25",
     "text": "Desk scan Aug 2026: priority 1 of 6. Operator already matches teams against each other by hand — the open-games feature run manually. Widest hours in the district. Unverified [B]."
+   },
+   {
+    "date": "2026-09-03",
+    "text": "Stage → onboarding. Owner dashboard handover pending: intake call and owner invite still to do. Runbook in the Ludi repo, docs/plans/camares-handover.md."
    }
   ]
  },
@@ -403,9 +411,9 @@
   "operator": "",
   "phone": "+357 99 403603",
   "pitches": "7× 5v5, 3× 7v7, 1× 9v9, 1× 11v11 (verify — source may be stale)",
-  "stage": "unqualified",
+  "stage": "proposal",
   "owner": "Nikolas",
-  "next_action": "Call — biggest cluster inventory and a DNS-dead website: the digital gap Ludi fills",
+  "next_action": "Follow-up call on the agreement: what is blocking a signature?",
   "next_date": "",
   "flags": [
    "parties"
@@ -414,6 +422,10 @@
    {
     "date": "2026-08-25",
     "text": "Desk scan 2026-08-25: priority 2. 12 pitches on paper, website dead, Facebook-only presence — under-managed or declining, both are openings. Unverified [B]."
+   },
+   {
+    "date": "2026-09-01",
+    "text": "Stage → proposal. Platform Services Agreement sent by email (English and Greek). No reply as of 2026-09-12."
    },
    {
     "date": "2026-09-02",
@@ -1119,16 +1131,20 @@
   "operator": "",
   "phone": "+357 70 075555",
   "pitches": "covered futsal court + 4 panoramic padel (MejorSet); 06:00–23:30 daily",
-  "stage": "unqualified",
+  "stage": "onboarding",
   "owner": "Nikolas",
-  "next_action": "Highest-value interview in Larnaca: the island's first futsal operator (1997) just put four padel courts on Playtomic and left the futsal off it — ask why",
-  "next_date": "",
+  "next_action": "Move the owner to email sign-in before 30 Sep, verify courts, start payments setup; ask why the futsal stayed off Playtomic",
+  "next_date": "2026-09-30",
   "flags": [
    "has website",
    "uses competitor tool",
    "recurring teams"
   ],
   "log": [
+   {
+    "date": "2026-08-28",
+    "text": "Stage → onboarding. Venue created in the Ludi app and the owner's dashboard account set up; hidden from players until setup is finished. Runbook in the Ludi repo, docs/plans/piacere-handover.md."
+   },
    {
     "date": "2026-09-02",
     "text": "Corridor re-scan 2026-09-02: missed entirely by the Larnaca scan of 2026-08-25 — it appears in no futsal directory, only on Maps and Playtomic. Claims to be the first futsal venue in Cyprus (1997); reviews describe a new covered court ('you can even play in winter'). Google 4.9★ (34 reviews). Playtomic lists Available sports: Padel only, four courts, 06:00–23:30 — the third Cypriot operator caught selling padel online while keeping football on the phone. Unverified [A/B]."
