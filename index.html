@@ -146,54 +146,6 @@
   body.editor .d-foot.editor-only{display:flex}
   .readhint{font-family:var(--mono);font-size:11px;color:var(--chalk-mute);line-height:1.6}
 
-  /* ---------- contacts (editor only, encrypted) ---------- */
-  [hidden]{display:none!important}
-  .ptabs{display:none;padding:0 16px;border-bottom:1px solid var(--line)}
-  body.editor .ptabs{display:flex;gap:20px}
-  .ptab{padding:9px 0 8px;margin-bottom:-1px;border-bottom:2px solid transparent;font-family:var(--display);font-weight:500;font-size:15px;letter-spacing:.05em;text-transform:uppercase;color:var(--chalk-dim)}
-  .ptab.on{color:var(--chalk);border-bottom-color:var(--s-proposal)}
-  .ptab .badge{display:inline-block;width:7px;height:7px;border-radius:50%;background:var(--s-contacted);margin-left:6px;vertical-align:2px}
-  .lockcard{padding:18px 16px;display:flex;flex-direction:column;gap:10px}
-  .lockcard h3{margin:0;font-family:var(--display);font-weight:600;font-size:22px;letter-spacing:.02em}
-  .lockcard p{margin:0;font-size:13px;line-height:1.5;color:var(--chalk-dim)}
-  .lockcard .err{font-family:var(--mono);font-size:11.5px;color:var(--overdue-deep);min-height:1em}
-  .lockcard .err:empty{display:none}
-  .field .lockcard{padding:12px;border:1px solid var(--line);border-radius:3px;background:var(--night)}
-  .field .lockcard h3{font-size:18px}
-  .chk{display:flex;gap:8px;align-items:center;font-size:13px;color:var(--chalk-dim);text-transform:none;letter-spacing:0;font-family:var(--body)}
-  .chk input{width:auto;margin:0}
-  .ctools{display:flex;gap:6px;align-items:center;padding:10px 16px;border-bottom:1px solid var(--line);flex-wrap:wrap}
-  .ctools input[type="search"]{flex:1;min-width:130px;padding:6px 9px;font-size:13px}
-  .ctools .btn{font-size:13px;padding:5px 8px}
-  .cstatus{display:flex;align-items:center;gap:8px;flex-wrap:wrap;padding:7px 16px;font-family:var(--mono);font-size:11px;letter-spacing:.03em;color:var(--chalk-dim);border-bottom:1px solid var(--line)}
-  .cstatus.dirty{background:color-mix(in srgb,var(--s-contacted) 18%,var(--turf));color:var(--chalk)}
-  .cstatus .btn{font-size:12px;padding:2px 7px}
-  .callrow{padding:8px 16px;border-bottom:1px solid var(--line)}
-  .cven{padding:12px 16px;border-bottom:1px solid var(--line);display:flex;flex-direction:column;gap:7px}
-  .cven-h{display:flex;align-items:center;gap:8px;text-align:left;width:100%}
-  .cven-h .dot{width:9px;height:9px;border-radius:1px;background:var(--c);flex-shrink:0}
-  .cven-h .nm{font-family:var(--display);font-weight:500;font-size:18px;line-height:1.05;letter-spacing:.02em}
-  .cven-h:hover .nm{color:var(--s-proposal)}
-  .cven-h .ds{margin-left:auto;font-family:var(--mono);font-size:10.5px;color:var(--chalk-mute);white-space:nowrap}
-  .person{display:flex;flex-direction:column;gap:1px;padding-left:17px;font-size:13px;line-height:1.45}
-  .person .pn{font-weight:600}
-  .person .pr{color:var(--chalk-dim);font-weight:400}
-  .person .pl{display:flex;flex-wrap:wrap;gap:2px 12px}
-  .person a{color:var(--s-proposal);text-decoration:none;font-family:var(--mono);font-size:12px}
-  .person .pnote,.cnote{color:var(--chalk-dim);font-size:12.5px;white-space:pre-wrap}
-  .cnote{padding-left:17px}
-  .cnone{padding-left:17px;font-size:12.5px;color:var(--chalk-mute);font-style:italic}
-  .cnone .subbtn{font-style:normal;color:var(--s-proposal);border-bottom-color:var(--s-proposal)}
-  .field label .priv{margin-left:6px;color:var(--s-onboarding);letter-spacing:.06em}
-  .cfield .person{padding-left:0}
-  .cfield .cnote,.cfield .cnone{padding-left:0}
-  .cfield .people{display:flex;flex-direction:column;gap:9px;margin-bottom:10px}
-  .pedit{display:flex;flex-direction:column;gap:6px;padding:10px;border:1px solid var(--line);border-radius:3px;margin-bottom:8px}
-  .pedit .grid2{gap:6px}
-  .pedit input{padding:6px 8px;font-size:13px}
-  .pedit .rm{align-self:flex-start;font-size:12px;padding:2px 7px;color:var(--overdue-deep)}
-  .cactions{display:flex;gap:8px;justify-content:flex-end;margin-top:10px;flex-wrap:wrap}
-
   /* ---------- markers ---------- */
   .pin{width:24px;height:16px;border:2px solid var(--c);border-radius:2px;background:color-mix(in srgb,var(--c) 45%,var(--night));position:relative;box-shadow:0 2px 6px rgba(16,24,28,.22);transition:transform .12s}
   .pin::after{content:"";position:absolute;left:50%;top:-2px;bottom:-2px;width:2px;background:var(--c);transform:translateX(-50%)}
@@ -289,12 +241,7 @@
           <option>Limassol</option><option>Larnaca</option><option>Nicosia</option><option>Paphos</option><option>Famagusta</option>
         </select>
       </div>
-      <div class="ptabs" role="tablist" aria-label="Panel">
-        <button class="ptab on" data-tab="venues" role="tab" aria-selected="true">Venues</button>
-        <button class="ptab" data-tab="contacts" role="tab" aria-selected="false">Contacts<span class="badge" id="ctabBadge" title="Unpublished contact changes" hidden></span></button>
-      </div>
       <div class="list" id="list"></div>
-      <div class="list" id="clist" hidden></div>
     </aside>
     <div id="map" role="application" aria-label="Map of Cyprus venues"></div>
     <section id="detail" aria-live="polite"></section>
@@ -383,9 +330,6 @@ if (localStorage.getItem('ludi-atlas-plan-v1') === null) localStorage.setItem('l
   const DRAFT_KEY = 'ludi-atlas-draft-v1';
   const EDIT_KEY  = 'ludi-atlas-editor';
   const PLAN_KEY  = 'ludi-atlas-plan-v1';
-  const CDRAFT_KEY = 'ludi-atlas-contacts-draft-v1'; // sealed envelope, never plaintext
-  const CKEY_KEY   = 'ludi-atlas-contacts-key-v1';   // only when "keep unlocked on this device" is ticked
-  const KDF_ITER   = 600000;
   const DONE = new Set(['live','lost']);
 
   // ---------- state ----------
@@ -399,16 +343,6 @@ if (localStorage.getItem('ludi-atlas-plan-v1') === null) localStorage.setItem('l
   let planning = false;   // tap venues to build a visit sequence
   let planSeq = [];       // venue ids, in visit order
   const markers = new Map();
-  // contacts: the people behind each venue. Public repo, so the file is AES-GCM sealed
-  // under a passphrase-derived key and only ever decrypted in the editor's browser.
-  let panelTab = 'venues';   // 'venues' | 'contacts'
-  let contacts = null;       // {venues:{[id]:{people:[{name,role,phone,email,note}], notes}}} once unlocked
-  let ckey = null;           // AES-GCM CryptoKey
-  let cPubEnv = null;        // published contacts.enc.json
-  let cDraftEnv = null;      // this device's unpublished envelope
-  let cEditing = null;       // venue id whose contacts form is open
-  let cQuery = '';
-  let cShowAll = false;
 
   const $ = s => document.querySelector(s);
   const today = () => new Date().toISOString().slice(0,10);
@@ -428,7 +362,6 @@ if (localStorage.getItem('ludi-atlas-plan-v1') === null) localStorage.setItem('l
     venues.forEach(normalize);
     try { planSeq = (JSON.parse(localStorage.getItem(PLAN_KEY)) || []).filter(id => venues.some(v => v.id === id)); }
     catch(e){ planSeq = []; }
-    await loadContacts();
   }
   function normalize(v){
     v.flags ||= []; v.log ||= []; v.owner ||= 'Nikolas'; v.stage ||= 'unqualified'; v.district ||= 'Limassol';
@@ -534,7 +467,6 @@ if (localStorage.getItem('ludi-atlas-plan-v1') === null) localStorage.setItem('l
     localStorage.setItem(EDIT_KEY, on ? '1' : '');
         if (!on) editing = false;
     renderDetail();
-    renderContactsPanel();
   }
 
   // ---------- map ----------
@@ -647,12 +579,12 @@ if (localStorage.getItem('ludi-atlas-plan-v1') === null) localStorage.setItem('l
   // ---------- detail ----------
   function select(id, fly){
     if (planning){ togglePlanStop(id); return; }
-    selected = id; editing = false; cEditing = null;
+    selected = id; editing = false;
     const v = venues.find(x=>x.id===id);
     if (v && fly) map.flyTo([v.lat, v.lng], Math.max(map.getZoom(), 14), {duration:.5});
     renderAll();
   }
-  function close(){ selected = null; editing = false; cEditing = null; renderAll(); }
+  function close(){ selected = null; editing = false; renderAll(); }
 
   function renderDetail(){
     const d = $('#detail');
@@ -678,7 +610,6 @@ if (localStorage.getItem('ludi-atlas-plan-v1') === null) localStorage.setItem('l
         <div class="stagecard" style="--c:var(--s-${v.stage})"><span class="lbl">${STAGE_LABEL[v.stage]}</span><span class="due ${isOverdue(v)?'overdue':''}">${due}</span></div>
         ${field('Next action', esc(v.next_action))}
         <div class="grid2">${field('Pitches', esc(v.pitches))}${field('Phone', v.phone ? `<a href="tel:${esc(v.phone.replace(/\s/g,''))}">${esc(v.phone)}</a>` : '', 'mono')}</div>
-        ${contactBlock(v)}
         ${v.flags.length ? `<div class="field"><label>Notes on fit</label><div class="flags">${v.flags.map(f=>`<span class="flag on">${esc(f)}</span>`).join('')}</div></div>` : ''}
         <div class="field"><label>Map</label><div class="maprow"><a class="btn" href="${mapsNav}" target="_blank" rel="noopener">Navigate</a><a class="btn ghost" href="${mapsView}" target="_blank" rel="noopener">Open in Maps</a><span class="coords mono">${ll}</span></div></div>
         <div class="field"><label>Log</label>
@@ -692,7 +623,6 @@ if (localStorage.getItem('ludi-atlas-plan-v1') === null) localStorage.setItem('l
       <div class="d-foot editor-only"><button class="btn primary" id="dEdit">Edit venue</button></div>`;
     $('#dClose').onclick = close;
     const e = $('#dEdit'); if (e) e.onclick = () => { editing = true; renderDetail(); };
-    wireContactBlock(v);
   }
 
   function renderForm(v){
@@ -762,247 +692,14 @@ if (localStorage.getItem('ludi-atlas-plan-v1') === null) localStorage.setItem('l
     venues.push(v); saveDraft(); selected = id; editing = true; renderAll();
   }
 
-  // ---------- contacts: sealed store ----------
-  // contacts.enc.json = {v, cipher, kdf, iter, salt, iv, ct, updated}. The salt stays fixed for the
-  // life of a passphrase, so one derived key opens every re-seal; each save gets a fresh IV.
-  let csalt = null, citer = KDF_ITER;
-  const b64 = buf => { const u = new Uint8Array(buf); let s = ''; for (let i = 0; i < u.length; i += 0x8000) s += String.fromCharCode.apply(null, u.subarray(i, i + 0x8000)); return btoa(s); };
-  const unb64 = s => Uint8Array.from(atob(s), c => c.charCodeAt(0));
-  const cSource = () => cDraftEnv || cPubEnv;
-  const hasContacts = c => !!(c && (c.people.length || c.notes));
-  async function deriveKey(pass, salt, iter){
-    const base = await crypto.subtle.importKey('raw', new TextEncoder().encode(pass), 'PBKDF2', false, ['deriveKey']);
-    return crypto.subtle.deriveKey({name:'PBKDF2', salt, iterations:iter, hash:'SHA-256'}, base, {name:'AES-GCM', length:256}, true, ['encrypt','decrypt']);
-  }
-  async function seal(obj){
-    const iv = crypto.getRandomValues(new Uint8Array(12));
-    const ct = await crypto.subtle.encrypt({name:'AES-GCM', iv}, ckey, new TextEncoder().encode(JSON.stringify(obj)));
-    return {v:1, cipher:'AES-GCM-256', kdf:'PBKDF2-SHA256', iter:citer, salt:csalt, iv:b64(iv), ct:b64(ct), updated:today()};
-  }
-  async function unseal(env, key){
-    const pt = await crypto.subtle.decrypt({name:'AES-GCM', iv:unb64(env.iv)}, key, unb64(env.ct));
-    return JSON.parse(new TextDecoder().decode(pt));
-  }
-  function normContacts(o){
-    const s = x => typeof x === 'string' ? x.trim() : '';
-    const out = {venues:{}};
-    for (const [id, c] of Object.entries((o && o.venues) || {})){
-      const people = (Array.isArray(c?.people) ? c.people : [])
-        .map(p => ({name:s(p?.name), role:s(p?.role), phone:s(p?.phone), email:s(p?.email), note:s(p?.note)}))
-        .filter(p => p.name || p.phone || p.email || p.note);
-      out.venues[id] = {people, notes:s(c?.notes)};
-    }
-    return out;
-  }
-  async function loadContacts(){
-    try { const r = await fetch('contacts.enc.json', {cache:'no-store'}); if (r.ok) cPubEnv = await r.json(); } catch(e){}
-    try { cDraftEnv = JSON.parse(localStorage.getItem(CDRAFT_KEY) || 'null'); } catch(e){ cDraftEnv = null; }
-    // the exported draft is now the published file, so nothing on this device is unpublished
-    if (cDraftEnv && cPubEnv && cDraftEnv.ct === cPubEnv.ct){ localStorage.removeItem(CDRAFT_KEY); cDraftEnv = null; }
-    const src = cSource();
-    if (!src || !window.crypto?.subtle) return;
-    try {
-      const kept = JSON.parse(localStorage.getItem(CKEY_KEY) || 'null');
-      if (!kept || kept.salt !== src.salt) return;
-      const key = await crypto.subtle.importKey('raw', unb64(kept.k), {name:'AES-GCM'}, true, ['encrypt','decrypt']);
-      contacts = normContacts(await unseal(src, key)); ckey = key; csalt = src.salt; citer = src.iter;
-    } catch(e){ localStorage.removeItem(CKEY_KEY); }
-  }
-  async function persistContacts(){
-    cDraftEnv = await seal(contacts);
-    localStorage.setItem(CDRAFT_KEY, JSON.stringify(cDraftEnv));
-  }
-  async function unlock(ctx){
-    const p = $(`#lk-p-${ctx}`).value, err = $(`#lk-e-${ctx}`), go = $(`#lk-go-${ctx}`), keep = $(`#lk-r-${ctx}`).checked;
-    const src = cSource();
-    if (!window.crypto?.subtle){ err.textContent = 'This browser can’t decrypt here. Open the atlas over https.'; return; }
-    if (!src){
-      if (p.length < 12){ err.textContent = 'Use at least 12 characters: the encrypted file is public.'; return; }
-      if (p !== $(`#lk-p2-${ctx}`).value){ err.textContent = 'The two passphrases don’t match.'; return; }
-    } else if (!p){ err.textContent = 'Enter your passphrase.'; return; }
-    go.disabled = true; go.textContent = src ? 'Unlocking…' : 'Creating…'; err.textContent = '';
-    try {
-      if (src){
-        const key = await deriveKey(p, unb64(src.salt), src.iter);
-        contacts = normContacts(await unseal(src, key)); ckey = key; csalt = src.salt; citer = src.iter;
-      } else {
-        csalt = b64(crypto.getRandomValues(new Uint8Array(16))); citer = KDF_ITER;
-        ckey = await deriveKey(p, unb64(csalt), citer);
-        contacts = {venues:{}};
-        await persistContacts();
-      }
-      if (keep) localStorage.setItem(CKEY_KEY, JSON.stringify({salt:csalt, k:b64(await crypto.subtle.exportKey('raw', ckey))}));
-      renderAll();
-      toast(src ? 'Contacts unlocked' : 'Contacts created. Export the file to publish');
-    } catch(e){
-      go.disabled = false; go.textContent = src ? 'Unlock' : 'Create contacts';
-      err.textContent = src ? 'That passphrase doesn’t open these contacts.' : 'Couldn’t create the contacts store.';
-    }
-  }
-  function lockContacts(){ contacts = null; ckey = null; cEditing = null; localStorage.removeItem(CKEY_KEY); renderAll(); toast('Contacts locked'); }
-  async function discardContacts(){
-    if (!confirm('Discard the unpublished contact changes on this device?')) return;
-    localStorage.removeItem(CDRAFT_KEY); cDraftEnv = null; cEditing = null;
-    try { contacts = normContacts(await unseal(cPubEnv, ckey)); csalt = cPubEnv.salt; citer = cPubEnv.iter; }
-    catch(e){ contacts = null; ckey = null; localStorage.removeItem(CKEY_KEY); }
-    renderAll();
-  }
-  function exportContacts(){
-    if (!cDraftEnv){ toast('Nothing new to export: contacts match the published file'); return; }
-    const blob = new Blob([JSON.stringify(cDraftEnv, null, 1) + '\n'], {type:'application/json'});
-    const a = Object.assign(document.createElement('a'), {href:URL.createObjectURL(blob), download:'contacts.enc.json'});
-    document.body.appendChild(a); a.click(); a.remove();
-    toast('contacts.enc.json downloaded. Add it to the repo and push');
-  }
-  async function importContacts(file){
-    let data;
-    try { data = JSON.parse(await file.text()); } catch(e){ toast('That file isn’t valid JSON'); return; }
-    if (data && data.ct){ toast('That’s an encrypted contacts file. Publish it by committing it, not importing'); return; }
-    const src = normContacts(data);
-    let nv = 0, np = 0, orphan = 0;
-    for (const [id, c] of Object.entries(src.venues)){
-      const cur = contacts.venues[id] || {people:[], notes:''};
-      const before = cur.people.length;
-      for (const p of c.people) if (!cur.people.some(x => x.name === p.name && x.phone === p.phone && x.email === p.email)) cur.people.push(p);
-      if (!cur.notes && c.notes) cur.notes = c.notes;
-      if (!hasContacts(cur)) continue;
-      contacts.venues[id] = cur; nv++; np += cur.people.length - before;
-      if (!venues.some(v => v.id === id)) orphan++;
-    }
-    if (!nv){ toast('Nothing to import. Expected {"venues": {"<venue id>": {"people": […]}}}'); return; }
-    await persistContacts(); renderAll();
-    toast(`Imported ${np} ${np===1?'person':'people'} across ${nv} venue${nv===1?'':'s'}${orphan?` · ${orphan} not on the atlas`:''}`);
-  }
-
-  // ---------- contacts: views ----------
-  function lockCard(ctx){
-    const setup = !cSource();
-    return `<div class="lockcard">
-      <h3>${setup ? 'Set up contacts' : 'Contacts are locked'}</h3>
-      <p>${setup ? 'Owner names, mobiles and emails, encrypted with a passphrase only you know. The encrypted file sits in the public repo, so use at least 12 characters. There is no reset: a forgotten passphrase means starting the contacts over.' : 'Enter your passphrase to open owner names, mobiles and emails.'}</p>
-      <input type="password" id="lk-p-${ctx}" placeholder="Passphrase" aria-label="Passphrase" autocomplete="${setup ? 'new-password' : 'current-password'}">
-      ${setup ? `<input type="password" id="lk-p2-${ctx}" placeholder="Same passphrase again" aria-label="Repeat passphrase" autocomplete="new-password">` : ''}
-      <label class="chk"><input type="checkbox" id="lk-r-${ctx}"> Keep unlocked on this device</label>
-      <div class="err" id="lk-e-${ctx}" role="alert"></div>
-      <button type="button" class="btn primary" id="lk-go-${ctx}">${setup ? 'Create contacts' : 'Unlock'}</button>
-    </div>`;
-  }
-  function wireLock(ctx){
-    const go = $(`#lk-go-${ctx}`); if (!go) return;
-    go.onclick = () => unlock(ctx);
-    document.querySelectorAll(`#lk-p-${ctx}, #lk-p2-${ctx}`).forEach(i => i.addEventListener('keydown', e => { if (e.key === 'Enter'){ e.preventDefault(); unlock(ctx); } }));
-  }
-  function personHTML(p){
-    const tel  = p.phone ? `<a href="tel:${esc(p.phone.replace(/[^\d+]/g,''))}">${esc(p.phone)}</a>` : '';
-    const mail = p.email ? `<a href="mailto:${esc(p.email)}">${esc(p.email)}</a>` : '';
-    return `<div class="person"><div><span class="pn">${esc(p.name || 'No name')}</span>${p.role ? ` <span class="pr">· ${esc(p.role)}</span>` : ''}</div>
-      ${tel || mail ? `<div class="pl">${tel}${mail}</div>` : ''}${p.note ? `<div class="pnote">${esc(p.note)}</div>` : ''}</div>`;
-  }
-  function renderContactsPanel(){
-    if (!document.body.classList.contains('editor')) panelTab = 'venues';
-    $('#list').hidden = panelTab !== 'venues';
-    const box = $('#clist'); box.hidden = panelTab !== 'contacts';
-    document.querySelectorAll('.ptab').forEach(b => { const on = b.dataset.tab === panelTab; b.classList.toggle('on', on); b.setAttribute('aria-selected', on); });
-    $('#ctabBadge').hidden = !cDraftEnv;
-    if (panelTab !== 'contacts') return;
-    if (!contacts){ box.innerHTML = lockCard('tab'); wireLock('tab'); return; }
-    const n = Object.values(contacts.venues).filter(hasContacts).length;
-    const status = cDraftEnv
-      ? `<span>Unpublished changes on this device. Export the file, then commit it</span>${cPubEnv ? '<button class="btn ghost" id="cDiscard">Discard</button>' : ''}`
-      : `<span>Published ${esc(cPubEnv?.updated || '')} · ${n} venue${n===1?'':'s'} with contacts</span>`;
-    box.innerHTML = `<div class="ctools">
-        <input type="search" id="cQ" placeholder="Search names, phones, emails" aria-label="Search contacts" value="${esc(cQuery)}">
-        <button class="btn" id="cExport" title="Download contacts.enc.json to commit">Export file</button>
-        <button class="btn ghost" id="cImport" title="Merge a plaintext contacts JSON">Import</button>
-        <button class="btn ghost" id="cLock">Lock</button>
-        <input type="file" id="cFile" accept=".json,application/json" hidden>
-      </div>
-      <div class="cstatus ${cDraftEnv ? 'dirty' : ''}">${status}</div>
-      <label class="chk callrow"><input type="checkbox" id="cAll" ${cShowAll ? 'checked' : ''}> Include venues without contacts</label>
-      <div id="cBody"></div>`;
-    const qi = $('#cQ'); qi.oninput = () => { cQuery = qi.value; renderCBody(); };
-    $('#cExport').onclick = exportContacts;
-    $('#cImport').onclick = () => $('#cFile').click();
-    $('#cFile').onchange = e => { const f = e.target.files[0]; if (f) importContacts(f); };
-    $('#cLock').onclick = lockContacts;
-    $('#cAll').onchange = e => { cShowAll = e.target.checked; renderCBody(); };
-    const dc = $('#cDiscard'); if (dc) dc.onclick = discardContacts;
-    renderCBody();
-  }
-  function renderCBody(){
-    const q = cQuery.trim().toLowerCase();
-    const digits = s => (s || '').replace(/\D/g, '');
-    const items = filtered().map(v => ({v, c:contacts.venues[v.id]})).filter(({v, c}) => {
-      if (!q) return cShowAll || hasContacts(c);
-      return [v.name, v.area, v.district, v.phone, c?.notes, ...(c?.people || []).flatMap(p => [p.name, p.role, p.phone, p.email, p.note])].join(' ').toLowerCase().includes(q);
-    }).sort((a, b) => (hasContacts(b.c) - hasContacts(a.c)) || (stageOrder[b.v.stage] - stageOrder[a.v.stage]) || a.v.name.localeCompare(b.v.name));
-    const body = $('#cBody');
-    if (!items.length){ body.innerHTML = `<div class="empty">${q ? 'No contact matches that search.' : 'No contacts in this view yet.<br>Tick “Include venues without contacts”, or open a venue and add one.'}</div>`; return; }
-    body.innerHTML = items.map(({v, c}) => {
-      const people = (c?.people || []).slice();
-      if (v.phone && !people.some(p => digits(p.phone) === digits(v.phone))) people.push({name:'Venue line', phone:v.phone});
-      return `<div class="cven" style="--c:var(--s-${v.stage})">
-        <button class="cven-h" data-id="${v.id}"><span class="dot"></span><span class="nm">${esc(v.name)}</span><span class="ds">${esc(v.district)}</span></button>
-        ${people.map(personHTML).join('')}
-        ${c?.notes ? `<div class="cnote">${esc(c.notes)}</div>` : ''}
-        ${hasContacts(c) ? '' : `<div class="cnone">No people yet · <button class="subbtn" data-add="${v.id}">add</button></div>`}
-      </div>`;
-    }).join('');
-    body.querySelectorAll('.cven-h').forEach(b => b.onclick = () => select(b.dataset.id, true));
-    body.querySelectorAll('[data-add]').forEach(b => b.onclick = () => { select(b.dataset.add, true); cEditing = b.dataset.add; renderDetail(); });
-  }
-  function personRow(p){
-    const f = (k, ph, type='text') => `<input data-k="${k}" type="${type}" placeholder="${ph}" value="${esc(p[k] || '')}">`;
-    return `<div class="pedit"><div class="grid2">${f('name','Name')}${f('role','Role: owner, manager…')}</div>
-      <div class="grid2">${f('phone','Mobile','tel')}${f('email','Email','email')}</div>${f('note','Note')}
-      <button type="button" class="btn ghost rm">Remove</button></div>`;
-  }
-  function contactBlock(v){
-    if (!document.body.classList.contains('editor')) return '';
-    const head = `<label>Contacts<span class="priv">· private</span></label>`;
-    if (!contacts) return `<div class="field cfield">${head}${lockCard('sheet')}</div>`;
-    const c = contacts.venues[v.id] || {people:[], notes:''};
-    if (cEditing === v.id) return `<div class="field cfield">${head}
-        <div id="cRows">${(c.people.length ? c.people : [{}]).map(personRow).join('')}</div>
-        <button type="button" class="btn ghost" id="cAddP">+ Person</button>
-        <div class="field" style="margin-top:12px"><label for="cNotes">Notes</label><textarea id="cNotes" placeholder="Best time to call, language, who decides…">${esc(c.notes)}</textarea></div>
-        <div class="cactions"><button type="button" class="btn ghost" id="cCancel">Cancel</button><button type="button" class="btn primary" id="cSave">Save contacts</button></div>
-      </div>`;
-    const body = hasContacts(c)
-      ? `<div class="people">${c.people.map(personHTML).join('')}</div>${c.notes ? `<div class="cnote">${esc(c.notes)}</div>` : ''}`
-      : `<div class="cnone">No contacts yet.</div>`;
-    return `<div class="field cfield">${head}${body}<div class="cactions"><button type="button" class="btn" id="cEditBtn">${hasContacts(c) ? 'Edit contacts' : 'Add contacts'}</button></div></div>`;
-  }
-  function wireContactBlock(v){
-    if (!document.body.classList.contains('editor')) return;
-    if (!contacts){ wireLock('sheet'); return; }
-    const eb = $('#cEditBtn'); if (eb) eb.onclick = () => { cEditing = v.id; renderDetail(); };
-    if (cEditing !== v.id) return;
-    const rows = $('#cRows');
-    const wireRm = () => rows.querySelectorAll('.rm').forEach(b => b.onclick = () => b.closest('.pedit').remove());
-    wireRm();
-    $('#cAddP').onclick = () => { rows.insertAdjacentHTML('beforeend', personRow({})); wireRm(); rows.lastElementChild.querySelector('input').focus(); };
-    $('#cCancel').onclick = () => { cEditing = null; renderDetail(); };
-    $('#cSave').onclick = async () => {
-      const people = [...rows.querySelectorAll('.pedit')]
-        .map(r => Object.fromEntries([...r.querySelectorAll('input')].map(i => [i.dataset.k, i.value.trim()])))
-        .filter(p => p.name || p.phone || p.email || p.note);
-      const notes = $('#cNotes').value.trim();
-      if (people.length || notes) contacts.venues[v.id] = {people, notes}; else delete contacts.venues[v.id];
-      await persistContacts(); cEditing = null; renderAll();
-      toast('Contacts saved. Export the file from the Contacts tab to publish');
-    };
-  }
-
   // ---------- render ----------
   function renderDraftbar(){ $('#draftbar').classList.toggle('show', hasDraft); $('#btnDiscard').style.display = hasDraft ? '' : 'none'; }
-  function renderAll(){ renderStages(); renderSummary(); renderList(); syncMarkers(); renderDetail(); renderDraftbar(); renderPlanbar(); renderContactsPanel(); }
+  function renderAll(){ renderStages(); renderSummary(); renderList(); syncMarkers(); renderDetail(); renderDraftbar(); renderPlanbar(); }
 
   // ---------- boot ----------
   load().then(() => {
     setEditor(!!localStorage.getItem(EDIT_KEY) || new URLSearchParams(location.search).has('edit'));
     $('#btnEdit').onclick = () => setEditor(!document.body.classList.contains('editor'));
-    document.querySelectorAll('.ptab').forEach(b => b.onclick = () => { panelTab = b.dataset.tab; renderAll(); });
     $('#distsel').onchange = e => {
       district = e.target.value; renderAll();
       const vs = filtered();
