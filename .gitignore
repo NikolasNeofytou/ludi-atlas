@@ -1,0 +1,4 @@
+# Plaintext contacts never enter this public repo — only contacts.enc.json does.
+contacts.json
+*.seed.json
+*contacts*.plain.json

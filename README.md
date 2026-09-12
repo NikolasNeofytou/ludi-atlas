@@ -8,6 +8,7 @@ district count as Limassol, the original patch).
 ## Files
 - `index.html` — the atlas (Leaflet + CARTO tiles, no build step, no keys)
 - `venues.json` — the published data. The page fetches this first; if it is missing (e.g. opened from file://) it falls back to the copy embedded in index.html. Keep the embedded copy in sync when editing the file by hand.
+- `contacts.enc.json` — the people behind each venue (names, mobiles, emails, notes), **encrypted**. See Contacts below.
 
 ## Publish workflow (Nikolas only)
 1. Open the page with `?edit` on the URL (editor mode sticks on that device).
@@ -17,6 +18,28 @@ district count as Limassol, the original patch).
 3. Press **Export JSON** → `venues.json` downloads.
 4. Replace `venues.json` in the repo and push. GitHub Pages redeploys; the readers' link shows the new state within ~10 minutes (Pages cache).
 5. Press **Discard draft** so your browser reads the published file again.
+
+## Contacts (Nikolas only, encrypted)
+This repo and the site are public, so owner names, personal mobiles and emails
+never go in `venues.json` or in a log line. They live in `contacts.enc.json`:
+AES-GCM-256 under a key derived from a passphrase (PBKDF2-SHA256, 600k
+iterations), decrypted only in the editor's browser. Readers never see the
+Contacts tab or the contacts block on a venue sheet.
+
+1. In editor mode, open the **Contacts** tab. The first time, choose a passphrase
+   (12+ characters). There is no reset: forgetting it means starting the contacts over.
+   After that, the tab asks for it once per visit, or never if "Keep unlocked on
+   this device" is ticked (the derived key is then stored in that browser).
+2. Add people from a venue's sheet (**Add contacts** / **Edit contacts**), or bulk-load
+   a plaintext file with **Import** (`{"venues": {"<venue id>": {"people": [{"name", "role",
+   "phone", "email", "note"}], "notes": ""}}}`). Every save is re-encrypted into a draft
+   on the device; nothing is stored in plaintext.
+3. **Export file** → `contacts.enc.json` downloads. Replace it in the repo and push.
+   Once the published file matches the draft, the draft clears itself on the next load.
+
+Never commit a plaintext contacts file (`.gitignore` blocks the obvious names). Git keeps
+every version of `contacts.enc.json`, so a leaked passphrase exposes the history too.
+If that ever happens, set up a new passphrase and treat the old contacts as public.
 
 ## Reports and plans (all views)
 - **Export PDF** prints an offline pipeline brief: next steps first, then every venue
